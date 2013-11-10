@@ -1,0 +1,41 @@
+<head>
+  <title>Pusher Test</title>
+  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+
+
+  	console.log('sdf')
+    // Enable pusher logging - don't include this in production
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) {
+        window.console.log(message);
+      }
+    };
+
+    var pusher = new Pusher('778221c8f338a6510736');
+    var channel = pusher.subscribe('test_channel');
+    channel.bind('my_event', function(data) {
+    	alert('boom')
+      alert(data.message);
+    });
+
+
+  </script>
+</head>
+
+
+<div id = "wrapper">
+
+  <h1> Erik Satie Flashmob </h1>
+
+  <div class = "piano" id="piano1">
+  	<h2>Piano 1</h2>
+  	<img src = "piano.jpg" width="100px" >
+  </div>
+
+  <div class ="piano"  id="piano2">
+  	<h2>Piano 2</h2>
+  	<img id src = "piano.jpg" width="100px">
+  </div>
+
+</div>
