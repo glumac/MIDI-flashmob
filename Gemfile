@@ -9,6 +9,9 @@ gem 'rails', '4.0.0'
 # Using Pusher API to keep port open 
 gem 'pusher'
 
+# Using MIDIlib Javascript library to trigger and play sounds events 
+gem "midilib", "~> 2.0.4"
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
