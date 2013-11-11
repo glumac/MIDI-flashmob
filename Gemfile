@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -8,6 +9,9 @@ gem 'rails', '4.0.0'
 
 # Using Pusher API to keep port open 
 gem 'pusher'
+
+#enables rails 4 features to work when hosted on Heroku
+gem 'rails_12factor'
 
 # Using MIDIlib Javascript library to trigger and play sounds events 
 gem "midilib", "~> 2.0.4"
