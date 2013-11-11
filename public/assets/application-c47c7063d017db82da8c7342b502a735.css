@@ -1,0 +1,45 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+ */
+
+
+.piano {
+	display: inline-block;
+	text-align: center;
+	margin-left:20px;
+	margin-right:20px
+}
+
+.selected {
+   opacity: .5;
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out
+}
+
+#wrapper {
+	margin-left:auto;
+	margin-right:auto;
+	width:350px;
+}
+
+
+h1 {
+	font-family: 'Lobster', cursive;
+	size: 80px;
+	}
+
+h2 {
+/*	font-family: 'Alice', serif;*/
+	font-family: 'Old Standard TT', serif;
+	}
