@@ -40,10 +40,9 @@ window.onload = function () {
 	});
 };
 
-
-$("#piano1").click(function() {
+function playNote() {
   MIDI.loadPlugin({
-    soundfontUrl: "/soundfont/",
+    soundfontUrl: "soundfont/",
     instrument: "acoustic_grand_piano",
     callback: function() {
       var delay = 0; // play one note every quarter second
@@ -55,9 +54,19 @@ $("#piano1").click(function() {
       MIDI.noteOff(0, note, delay + 0.75);
     }
   });
-});
+}
+
+function playFile(file) {
+		MIDI.Player.loadFile(file, function(e){
+    console.log("play");
+    MIDI.Player.start();
+  });
+}
 
 
-$("#piano2").click(function() {
-  MIDI.Player.loadFile("minute_waltz.mid", callback);
-});
+
+
+
+
+
+
