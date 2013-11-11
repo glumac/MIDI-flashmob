@@ -3,7 +3,6 @@
 <head>
   <title>MidiFlashmob</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 
 
@@ -31,13 +30,13 @@
  <script src="inc/jasmid/replayer.js"></script>
  <!-- extras -->
  <script src="inc/Base64.js" type="text/javascript"></script>
- <script src="inc/base64binary.js" type="text/javascript"></script>
+ <script src="winc/base64binary.js" type="text/javascript"></script>
 
 
 </head>
 <body>
 
 <%= yield %>
-
+ <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 </body>
 </html>

@@ -1,22 +1,39 @@
 <head>
   <title>Pusher Test</title>
 
+<script>
+var piano1;
+//////////PUSHER//////////////////////
+// Enable pusher logging - don't include this in production
+Pusher.log = function(message) {
+  if (window.console && window.console.log) {
+    window.console.log(message);
+  }
+};
 
-  <script type="text/javascript">
-    // Enable pusher logging - don't include this in production
-    Pusher.log = function(message) {
-      if (window.console && window.console.log) {
-        window.console.log(message);
-      }
-    };
+// var pusher = new Pusher('778221c8f338a6510736');
+// var channel = pusher.subscribe('test_channel');
+// channel.bind('my_event', function(data) {
+//   // alert('boom');
+//   console.log(data.message);
+// });
 
-    var pusher = new Pusher('778221c8f338a6510736');
-    var channel = pusher.subscribe('test_channel');
-    channel.bind('my_event', function(data) {
-      alert('boom')
-      alert(data.message);
-    });
-  </script>
+
+var pusher = new Pusher('778221c8f338a6510736');
+var channel = pusher.subscribe('test_channel');
+channel.bind('my_event', function(data) {
+  // alert('boom');
+  console.log(data.message);
+  console.log("yay");
+  piano1 = data;
+  changeAll(data);
+});
+
+
+</script>
+
+
+
 
 </head>
 
