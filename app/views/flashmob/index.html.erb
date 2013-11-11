@@ -1,6 +1,7 @@
 <head>
   <title>Pusher Test</title>
-  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
+
+
   <script type="text/javascript">
     // Enable pusher logging - don't include this in production
     Pusher.log = function(message) {
@@ -12,10 +13,11 @@
     var pusher = new Pusher('778221c8f338a6510736');
     var channel = pusher.subscribe('test_channel');
     channel.bind('my_event', function(data) {
-    	alert('boom')
+      alert('boom')
       alert(data.message);
     });
   </script>
+
 </head>
 
 <div id = "wrapper">
@@ -36,26 +38,18 @@
     <input type="button" align="absmiddle" value="play" onclick="pausePlayStop()" id="pausePlayStop">
   </div>
 
+
+<!-- 
+  <a href="javascript:void(play('minute_waltz.mid'))">Chopin - Waltz Op.61 (Minute Waltz)</a> -->
+            
+
 </div>
 
- <script src="/js/MIDI/AudioDetect.js" type="text/javascript"></script>
- <script src="/js/MIDI/LoadPlugin.js" type="text/javascript"></script>
- <script src="/js/MIDI/Plugin.js" type="text/javascript"></script>
- <script src="/js/MIDI/Player.js" type="text/javascript"></script>
- <script src="/js/Window/DOMLoader.XMLHttp.js" type="text/javascript"></script>
- <script src="/js/Window/DOMLoader.script.js" type="text/javascript"></script>
- <!-- extras -->
- <script src="/inc/Base64.js" type="text/javascript"></script>
- <script src="/inc/base64binary.js" type="text/javascript"></script>
-</head>
-<body>
-<script type="text/javascript">
-
-
+<script>
 
 $("#piano1").click(function() {
   MIDI.loadPlugin({
-    soundfontUrl: "/soundfont/",
+    soundfontUrl: "soundfont/",
     instrument: "acoustic_grand_piano",
     callback: function() {
       var delay = 0; // play one note every quarter second
@@ -69,6 +63,336 @@ $("#piano1").click(function() {
   });
 });
 
+
+$("#piano2").click(function() {
+  MIDI.Player.loadFile("/Gymnopedie_1_Saya_Tomoko-s-gymno1.mid", function(e){
+    console.log("called", e); 
+    MIDI.Player.start();
+  });
+});
+
+MIDI.Player.start();
+
+
+// $("#piano2").click(function() {
+// MIDI.loadPlugin({
+//     soundfontUrl: "/soundfont/",
+//     instrument: "brass_section",
+//     callback: function () {
+//             note = 60,
+//             velocity = 127, // how hard the note hits, from 0-127
+//             delay = 2.5; // how long to hold the note, in seconds
+//         // play the note
+//         MIDI.programChange(0, "brass_section"); // Load xylophone into Channel 0
+//         MIDI.noteOn(0, note, velocity) // Play middle C on Channel 0
+//         MIDI.noteOff(0, note, delay) // Release the middle C after 0.5 seconds
+//     }
+// });
+// });
+
+
+/*
+  -------------------------------------
+  MIDI.Player : 0.3
+  -------------------------------------
+  https://github.com/mudcube/MIDI.js
+  -------------------------------------
+  #jasmid
+  -------------------------------------
+*/
+
+if (typeof (MIDI) === "undefined") var MIDI = {};
+if (typeof (MIDI.Player) === "undefined") MIDI.Player = {};
+
+(function() { "use strict";
+
+var root = MIDI.Player;
+root.callback = undefined; // your custom callback goes here!
+root.currentTime = 0;
+root.endTime = 0; 
+root.restart = 0; 
+root.playing = false;
+root.timeWarp = 1;
+
+//
+root.start =
+root.resume = function () {
+  if (root.currentTime < -1) root.currentTime = -1;
+  startAudio(root.currentTime);
+};
+
+root.pause = function () {
+  var tmp = root.restart;
+  stopAudio();
+  root.restart = tmp;
+};
+
+root.stop = function () {
+  stopAudio();
+  root.restart = 0;
+  root.currentTime = 0;
+};
+
+root.addListener = function(callback) {
+  onMidiEvent = callback;
+};
+
+root.removeListener = function() {
+  onMidiEvent = undefined;
+};
+
+root.clearAnimation = function() {
+  if (root.interval)  {
+    window.clearInterval(root.interval);
+  }
+};
+
+root.setAnimation = function(config) {
+  var callback = (typeof(config) === "function") ? config : config.callback;
+  var interval = config.interval || 30;
+  var currentTime = 0;
+  var tOurTime = 0;
+  var tTheirTime = 0;
+  //
+  root.clearAnimation();
+  root.interval = window.setInterval(function () {
+    if (root.endTime === 0) return;
+    if (root.playing) {
+      currentTime = (tTheirTime === root.currentTime) ? tOurTime - (new Date).getTime() : 0;
+      if (root.currentTime === 0) {
+        currentTime = 0;
+      } else {
+        currentTime = root.currentTime - currentTime;
+      }
+      if (tTheirTime !== root.currentTime) {
+        tOurTime = (new Date).getTime();
+        tTheirTime = root.currentTime;
+      }
+    } else { // paused
+      currentTime = root.currentTime;
+    }
+    var endTime = root.endTime;
+    var percent = currentTime / endTime;
+    var total = currentTime / 1000;
+    var minutes = total / 60;
+    var seconds = total - (minutes * 60);
+    var t1 = minutes * 60 + seconds;
+    var t2 = (endTime / 1000);
+    if (t2 - t1 < -1) return;
+    callback({
+      now: t1,
+      end: t2,
+      events: noteRegistrar
+    });
+  }, interval);
+};
+
+// helpers
+
+root.loadMidiFile = function() { // reads midi into javascript array of events
+  root.replayer = new Replayer(MidiFile(root.currentData), root.timeWarp);
+  root.data = root.replayer.getData();
+  root.endTime = getLength();
+};
+
+root.loadFile = function (file, callback) {
+  root.stop();
+  if (file.indexOf("base64,") !== -1) {
+    var data = window.atob(file.split(",")[1]);
+    root.currentData = data;
+    root.loadMidiFile();
+    if (callback) callback(data);
+    return;
+  }
+  ///
+  var fetch = new XMLHttpRequest();
+  fetch.open('GET', file);
+  fetch.overrideMimeType("text/plain; charset=x-user-defined");
+  fetch.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+      var t = this.responseText || "";
+      var ff = [];
+      var mx = t.length;
+      var scc = String.fromCharCode;
+      for (var z = 0; z < mx; z++) {
+        ff[z] = scc(t.charCodeAt(z) & 255);
+      }
+      var data = ff.join("");
+      root.currentData = data;
+      root.loadMidiFile();
+      if (callback) callback(data);
+    }
+  };
+  fetch.send();
+};
+
+// Playing the audio
+
+var eventQueue = []; // hold events to be triggered
+var queuedTime; // 
+var startTime = 0; // to measure time elapse
+var noteRegistrar = {}; // get event for requested note
+var onMidiEvent = undefined; // listener callback
+var scheduleTracking = function (channel, note, currentTime, offset, message, velocity) {
+  var interval = window.setTimeout(function () {
+    var data = {
+      channel: channel,
+      note: note,
+      now: currentTime,
+      end: root.endTime,
+      message: message,
+      velocity: velocity
+    };
+    //
+    if (message === 128) {
+      delete noteRegistrar[note];
+    } else {
+      noteRegistrar[note] = data;
+    }
+    if (onMidiEvent) {
+      onMidiEvent(data);
+    }
+    root.currentTime = currentTime;
+    if (root.currentTime === queuedTime && queuedTime < root.endTime) { // grab next sequence
+      startAudio(queuedTime, true);
+    }
+  }, currentTime - offset);
+  return interval;
+};
+
+var getContext = function() {
+  if (MIDI.lang === 'WebAudioAPI') {
+    return MIDI.Player.ctx;
+  } else if (!root.ctx) {
+    root.ctx = { currentTime: 0 };
+  }
+  return root.ctx;
+};
+
+var getLength = function() {
+  var data =  root.data;
+  var length = data.length;
+  var totalTime = 0.5;
+  for (var n = 0; n < length; n++) {
+    totalTime += data[n][1];
+  }
+  return totalTime;
+};
+
+var startAudio = function (currentTime, fromCache) {
+  if (!root.replayer) return;
+  if (!fromCache) {
+    if (typeof (currentTime) === "undefined") currentTime = root.restart;
+    if (root.playing) stopAudio();
+    root.playing = true;
+    root.data = root.replayer.getData();
+    root.endTime = getLength();
+  }
+  var note;
+  var offset = 0;
+  var messages = 0;
+  var data = root.data; 
+  var ctx = getContext();
+  var length = data.length;
+  //
+  queuedTime = 0.5;
+  startTime = ctx.currentTime;
+  //
+  for (var n = 0; n < length && messages < 100; n++) {
+    queuedTime += data[n][1];
+    if (queuedTime < currentTime) {
+      offset = queuedTime;
+      continue;
+    }
+    currentTime = queuedTime - offset;
+    var event = data[n][0].event;
+    if (event.type !== "channel") continue;
+    var channel = event.channel;
+    switch (event.subtype) {
+      case 'noteOn':
+        if (MIDI.channels[channel].mute) break;
+        note = event.noteNumber - (root.MIDIOffset || 0);
+        eventQueue.push({
+          event: event,
+          source: MIDI.noteOn(channel, event.noteNumber, event.velocity, currentTime / 1000 + ctx.currentTime),
+          interval: scheduleTracking(channel, note, queuedTime, offset, 144, event.velocity)
+        });
+        messages ++;
+        break;
+      case 'noteOff':
+        if (MIDI.channels[channel].mute) break;
+        note = event.noteNumber - (root.MIDIOffset || 0);
+        eventQueue.push({
+          event: event,
+          source: MIDI.noteOff(channel, event.noteNumber, currentTime / 1000 + ctx.currentTime),
+          interval: scheduleTracking(channel, note, queuedTime, offset, 128)
+        });
+        break;
+      default:
+        break;
+    }
+  }
+};
+
+var stopAudio = function () {
+  var ctx = getContext();
+  root.playing = false;
+  root.restart += (ctx.currentTime - startTime) * 1000;
+  // stop the audio, and intervals
+  while (eventQueue.length) {
+    var o = eventQueue.pop();
+    window.clearInterval(o.interval);
+    if (!o.source) continue; // is not webaudio
+    if (typeof(o.source) === "number") {
+      window.clearTimeout(o.source);
+    } else { // webaudio
+      var source = o.source;
+      source.disconnect(0);
+      source.noteOff(0);
+    }
+  }
+  // run callback to cancel any notes still playing
+  for (var key in noteRegistrar) {
+    var o = noteRegistrar[key]
+    if (noteRegistrar[key].message === 144 && onMidiEvent) {
+      onMidiEvent({
+        channel: o.channel,
+        note: o.note,
+        now: o.now,
+        end: o.end,
+        message: 128,
+        velocity: o.velocity
+      });
+    }
+  }
+  // reset noteRegistrar
+  noteRegistrar = {};
+};
+
+})();
+
+
+
+
+
+
 </script>
+
+
+
+
+
 </body>
 </html>
+
+
+     <!-- midi.js package -->
+   <script src="js/MIDI/AudioDetect.js" type="text/javascript"></script>
+   <script src="js/MIDI/LoadPlugin.js" type="text/javascript"></script>
+   <script src="js/MIDI/Plugin.js" type="text/javascript"></script>
+   <script src="js/MIDI/Player.js" type="text/javascript"></script>
+   <script src="js/Window/DOMLoader.XMLHttp.js" type="text/javascript"></script>
+   <script src="js/Window/DOMLoader.script.js" type="text/javascript"></script>
+   <!-- extras -->
+   <script src="inc/Base64.js" type="text/javascript"></script>
+   <script src="inc/base64binary.js" type="text/javascript"></script>

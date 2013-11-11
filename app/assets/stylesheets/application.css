@@ -15,8 +15,8 @@
 .piano {
 	display: inline-block;
 	text-align: center;
-/*	margin-left:auto;
-	margin-right:auto;*/
+	margin-left:20px;
+	margin-right:20px
 }
 
 #wrapper {
@@ -24,3 +24,14 @@
 	margin-right:auto;
 	width:350px;
 }
+
+
+h1 {
+	font-family: 'Lobster', cursive;
+	size: 80px;
+	}
+
+h2 {
+/*	font-family: 'Alice', serif;*/
+	font-family: 'Old Standard TT', serif;
+	}

@@ -1,9 +1,8 @@
 MidiFlashmob::Application.routes.draw do
 
+  root :to => 'flashmob#index'
 
   get '/boom' => 'flashmob#boom'
-
-  root :to => 'flashmob#index'
 
 
     # get '/controller/:piano_num', to: 'home#controllers'
