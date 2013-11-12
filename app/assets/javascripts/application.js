@@ -38,7 +38,7 @@ function clickPiano() {
 }
 
 function changeAll(data){
-	playFile("/Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
+	console.log("test test");
 	var piano = data.piano;
 	// console.log(piano);
 	var el = $("#"+piano);
