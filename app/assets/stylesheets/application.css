@@ -12,12 +12,12 @@
  *= require_tree .
  */
 
-.piano {
+/*.piano {
 	display: inline-block;
 	text-align: center;
 	margin-left:20px;
 	margin-right:20px
-}
+}*/
 
 .selected {
    opacity: .5;
@@ -33,9 +33,18 @@
 	text-align: center;
 }
 
+#pianos li
+{
+  display: inline-block;
+  list-style-type: none;
+  padding-right: 20px;
+  float: left;
+}
+
 #twitter {
-	float:right;
-	margin: 0px;
+ 		position: fixed;
+    bottom: 0;
+    right: 0;
 }
 
 h1 {
@@ -44,7 +53,7 @@ h1 {
 	margin-bottom: 8px;
 	}
 
-h2, h3, h4, h5 {
+h2, h3, h4, h5, p {
 /*	font-family: 'Alice', serif;*/
 	font-family: 'Old Standard TT', serif;
 	}

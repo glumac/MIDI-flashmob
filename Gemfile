@@ -10,6 +10,9 @@ gem 'rails', '4.0.0'
 # Using Pusher API to keep port open 
 gem 'pusher'
 
+# Font awesome for icons
+gem "font-awesome-rails", "~> 4.0.3.0"
+
 #enables rails 4 features to work when hosted on Heroku
 gem 'rails_12factor'
 
