@@ -31,32 +31,17 @@ function clickPiano() {
 			// }
 		}).done(function(data){
 			var piano_return = data.piano;
-			console.log(piano_return);
+			// console.log(piano_return);
 		});
 	});
 }
 
-// function changeAll() {
-// 	$.ajax({
-// 		type: "GET",
-// 		url:"/piano",
-// 		dataType:'json',
-// 		data: data,
-//     success:function(data){
-// 			$('#data').addClass("selected");
-// 			// console.log(data);
-// 			}
-// 		});
-// }
-
 function changeAll(data){
 	var piano = data.piano;
-	console.log(piano);
-	var el = $("#"+piano)
+	// console.log(piano);
+	var el = $("#"+piano);
 	el.addClass("selected");
-
 }
-
 
 function loadingNote() {
 	MIDI.loadPlugin({
@@ -86,13 +71,14 @@ function playNote() {
       MIDI.setVolume(0, 127);
       MIDI.noteOn(0, note, velocity, delay);
       MIDI.noteOff(0, note, delay + 0.75);
+      console.log("playnote");
     }
   });
 }
 
 function playFile(file) {
 		MIDI.Player.loadFile(file, function(e){
-    console.log("play");
+    console.log("playfile");
     MIDI.Player.start();
   });
 }
@@ -117,7 +103,8 @@ function playFile(file) {
 $( document ).ready(function() {
 	loadingNote();
 	clickPiano();
-	var selected_piano = $('.selected');
+	playFile();
+	// var selected_piano = $('.selected');
 });
 
 

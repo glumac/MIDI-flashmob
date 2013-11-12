@@ -22,8 +22,8 @@ var pusher = new Pusher('778221c8f338a6510736');
 var channel = pusher.subscribe('test_channel');
 channel.bind('my_event', function(data) {
   // alert('boom');
-  console.log(data.message);
-  console.log("yay");
+  // console.log(data.message);
+  // console.log("yay");
   piano1 = data;
   changeAll(data);
 });
@@ -54,14 +54,42 @@ channel.bind('my_event', function(data) {
 
 <script>
 
+function playNote() {
+  MIDI.loadPlugin({
+    soundfontUrl: "soundfont/",
+    instrument: "acoustic_grand_piano",
+    callback: function() {
+      var delay = 0; // play one note every quarter second
+      var note = 76; // the MIDI note
+      var velocity = 127; // how hard the note hits
+      // play the note
+      MIDI.setVolume(0, 127);
+      MIDI.noteOn(0, note, velocity, delay);
+      MIDI.noteOff(0, note, delay + 0.75);
+      console.log("playnote");
+    }
+  });
+}
+
+function playFile(file) {
+    MIDI.Player.loadFile(file, function(e){
+    console.log("playfile");
+    MIDI.Player.start();
+  });
+}
+
+
+
   $("#piano2").click(function() {
       playFile("/Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
   });
 
   $("#piano1").click(function() {
       playNote();
+      console.log("ok");
 
   });
+
 
 </script>
 
