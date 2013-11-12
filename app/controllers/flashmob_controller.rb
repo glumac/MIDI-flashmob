@@ -3,10 +3,9 @@ class FlashmobController < ApplicationController
 	def index
 	end
 
-
-	def controllers
-		@piano_num = params[:piano_num]
-	end
+	# def controllers
+	# 	@piano_num = params[:piano_num]
+	# end
 
 	# def boom
 	
