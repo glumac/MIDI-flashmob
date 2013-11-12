@@ -16,6 +16,7 @@
 
 function clickPiano() {
 	$(".piano").click(function() {
+		playNote();
 		$( this ).fadeTo( "slow", 0.33 );
 		$( this ).addClass( "my_piano" );
 		var selected_piano = $(this).attr('id');
@@ -37,6 +38,7 @@ function clickPiano() {
 }
 
 function changeAll(data){
+	playFile("/Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
 	var piano = data.piano;
 	// console.log(piano);
 	var el = $("#"+piano);
@@ -103,7 +105,6 @@ function playFile(file) {
 $( document ).ready(function() {
 	loadingNote();
 	clickPiano();
-	playFile();
 	// var selected_piano = $('.selected');
 });
 
