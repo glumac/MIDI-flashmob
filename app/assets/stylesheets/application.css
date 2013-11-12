@@ -29,16 +29,23 @@
 #wrapper {
 	margin-left:auto;
 	margin-right:auto;
-	width:350px;
+	width:450px;
+	text-align: center;
 }
 
+#twitter {
+	float:right;
+	margin: 0px;
+}
 
 h1 {
 	font-family: 'Lobster', cursive;
-	size: 80px;
+	font-size: 300%;
+	margin-bottom: 8px;
 	}
 
-h2 {
+h2, h3, h4, h5 {
 /*	font-family: 'Alice', serif;*/
 	font-family: 'Old Standard TT', serif;
 	}
+

@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require_tree .
+
 
 function clickPiano() {
 	$(".piano").click(function() {
@@ -103,8 +105,9 @@ function playFile(file) {
 
 
 $( document ).ready(function() {
-	loadingNote();
-	clickPiano();
+	// loadingNote();
+	// clickPiano();
+	// playNote();
 	// var selected_piano = $('.selected');
 });
 
