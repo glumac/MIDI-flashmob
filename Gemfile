@@ -14,7 +14,7 @@ gem 'pusher'
 gem "font-awesome-rails", "~> 4.0.3.0"
 
 #enables rails 4 features to work when hosted on Heroku
-# gem 'rails_12factor'
+gem 'rails_12factor'
 
 # Using MIDIlib Javascript library to trigger and play sounds events 
 gem "midilib", "~> 2.0.4"

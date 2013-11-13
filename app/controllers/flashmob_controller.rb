@@ -12,7 +12,6 @@ class FlashmobController < ApplicationController
 	  		format.html
 	  		format.json { render :json => {piano: params['piano']}.to_json}
 	  end
-
 	end
 
 
@@ -25,7 +24,6 @@ class FlashmobController < ApplicationController
 	  		format.json { render :json => {piano: params['piano']}.to_json}
 	  end
 	end
-
 
 end
 
