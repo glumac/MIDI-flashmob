@@ -21,30 +21,7 @@ var selected_piano;
 var piano_return;
 
 
-// When an image is clicked, that part is assigned.  An ajax call is sent and pusher fades out that image in other users' browsers
-// $(function(){
-// 	$(".piano").click(function() {
-// 		playNote();
-// 		String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
-// 		var key = "my_piano";
-// 		$( this ).addClass( "my_piano" );
-// 		selected_piano = $(this).attr('id');
-// 		if ($("#piano1").attr("class").search(key) <= 0) {
-//       window.track = "gymlow2.mid";
-//     } else if ($("#piano2").attr("class").search(key) <= 0){
-// 			window.track = "gymhigh.mid";
-// 		} else {
-// 		console.log("no piano selected");
-// 		}
-// 		$.ajax({
-// 		type: "POST",
-// 		url:"/piano",
-// 		dataType:'json',
-// 		data: {piano: selected_piano},
-// 		}).done(function(data){
-// 		});
-// 	});
-// 	});
+
 
 $(function(){
 	$("#join").click(function() {
@@ -59,6 +36,11 @@ $(function(){
 		data: {piano: selected_piano},
 		}).done(function(data){
 		});
+		// $(".join").removeClass('join');
+		$('#join_span').text("     Joined!     ");
+		$("#join").unbind("click");
+		$("#join").addClass("clicked");
+		$("#join").removeAttr('id');
 	});
 });
 

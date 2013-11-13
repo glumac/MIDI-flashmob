@@ -23,7 +23,10 @@ var channel = pusher.subscribe('test_channel');
 var callback = function(data) {};
 
 channel.bind('my_event', function(data) {
-  $("#pianos").append('<li class = "piano selected"><img src = "satie.png" width="175px"></li>');
+  var key = "my_piano";
+  if ($("li:last").attr("class").search(key) === -1) {
+    $("#pianos").append('<li class = "piano selected"><img src = "satie.png" width="175px"></li>');
+    };
   channel.unbind('my_event', callback);
 });
 
@@ -33,13 +36,24 @@ channel.bind('play_all', function(data) {
 });
 
 
+selected_piano = $(this).attr('id');
+//    if ($("#piano1").attr("class").search(key) <= 0) {
+//       window.track = "gymlow2.mid";
+//     } else if ($("#piano2").attr("class").search(key) <= 0){
+//      window.track = "gymhigh.mid";
+//    } else {
+//    console.log("no piano selected");
+//    }
+
+
+
 </script>
 </head>
 <body>
 
 <div id = "info">
   <h1> Erik Satie Flashmob </h1>
-  <div id ="join" class="button button-flat-primary">Join Flashmob</div>
+  <div id = "join" class="button button-flat-primary"><span id="join_span">Join Flashmob</span></div>
   <div id = "playbtn" class="button button-flat-primary">Play</div>
   <p>What is this? </p>
 </div>
