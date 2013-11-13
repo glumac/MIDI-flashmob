@@ -49,7 +49,7 @@ channel.bind('my_event', function(data) {
     <li class ="piano"  id="piano2">
       <h2>Piano 2</h2>
       <img id src = "satie.png" width="175px">
-    </li>'
+    </li>
   </ul>
 </div>
 
@@ -58,49 +58,13 @@ channel.bind('my_event', function(data) {
     <script>
       !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
     </script>
-
  <!--      <div class="fb-like" data-href="http://midi-flashmob.herokuapp.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
  -->
   </div>
 
 </body>
 
-<script>
-
-function playNote() {
-  MIDI.loadPlugin({
-    soundfontUrl: "soundfont/",
-    instrument: "acoustic_grand_piano",
-    callback: function() {
-      var delay = 0; // play one note every quarter second
-      var note = 76; // the MIDI note
-      var velocity = 127; // how hard the note hits
-      // play the note
-      MIDI.setVolume(0, 127);
-      MIDI.noteOn(0, note, velocity, delay);
-      MIDI.noteOff(0, note, delay + 0.75);
-      console.log("playnote");
-    }
-  });
-}
-
-function playFile(file) {
-    MIDI.Player.loadFile(file, function(e){
-    console.log("playfile");
-    MIDI.Player.start();
-  });
-}
-
-  $("#piano2").click(function() {
-      // playFile("/Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
-  });
-
-  $("#piano1").click(function() {
-      playNote();
-      console.log("ok");
-  });
-
-
+ 
 
 
 

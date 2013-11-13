@@ -16,6 +16,9 @@
 //= require_tree .
 
 
+var file = "test";
+
+
 function clickPiano() {
 	$(".piano").click(function() {
 		playNote();
@@ -39,6 +42,7 @@ function clickPiano() {
 	});
 }
 
+
 function changeAll(data){
 	console.log("test test");
 	var piano = data.piano;
@@ -47,21 +51,13 @@ function changeAll(data){
 	el.addClass("selected");
 }
 
-function loadingNote() {
-	MIDI.loadPlugin({
-		soundfontUrl: "./soundfont/",
-		instrument: "acoustic_grand_piano",
-		callback: function() {
-			var delay = 0; // play one note every quarter second
-			var note = 50; // the MIDI note
-			var velocity = 127; // how hard the note hits
-			// play the note
-			MIDI.setVolume(0, 127);
-			MIDI.noteOn(0, note, velocity, delay);
-			MIDI.noteOff(0, note, delay + 0.75);
-		}
-	});
-}
+
+var pusher = new Pusher('778221c8f338a6510736');
+var channel = pusher.subscribe('test_channel');
+channel.bind('play_all', function(data) {
+  alert('boom');
+  alert(data.message);
+});
 
 function playNote() {
   MIDI.loadPlugin({
@@ -87,6 +83,22 @@ function playFile(file) {
   });
 }
 
+	
+  $("#playbtn").click(function() {
+      // playFile("/gymhigh.mid");
+      playFile("/gymlow.mid");
+  });
+
+  $("#piano2").click(function() {
+			playFile("Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
+  });
+
+  $("#piano1").click(function() {
+      playNote();
+      // playFile("/gymlow.mid");
+  });
+
+
 
 // //////////PUSHER//////////////////////
 // // Enable pusher logging - don't include this in production
@@ -96,18 +108,11 @@ function playFile(file) {
 //   }
 // };
 
-// var pusher = new Pusher('778221c8f338a6510736');
-// var channel = pusher.subscribe('test_channel');
-// channel.bind('my_event', function(data) {
-//   alert('boom');
-//   alert(data.message);
-// });
+
 
 
 $( document ).ready(function() {
-	// loadingNote();
-	// clickPiano();
-	// playNote();
+	playNote();
 	// var selected_piano = $('.selected');
 });
 
