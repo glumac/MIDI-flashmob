@@ -28,7 +28,6 @@ channel.bind('my_event', function(data) {
 });
 
 channel.bind('play_all', function(data) {
-  alert('boom');
   playAll();
   channel.unbind('play_all', callback);
 });
