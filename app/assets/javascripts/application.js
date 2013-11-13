@@ -16,17 +16,27 @@
 //= require_tree .
 
 
-var file
+var track;
 var selected_piano;
 var piano_return;
 
 
 $(function(){
 	$(".piano").click(function() {
+		playNote();
 		// $( this ).fadeTo( "slow", 0.33 );
+		String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
+		var key = "my_piano";
 		$( this ).addClass( "my_piano" );
 		selected_piano = $(this).attr('id');
 		// console.log($(this).attr('id'));
+		if ($("#piano1").attr("class").search(key) <= 0) {
+      window.track = "gymlow2.mid";
+    } else if ($("#piano2").attr("class").search(key) <= 0){
+			window.track = "gymhigh.mid";
+		} else {
+		console.log("no piano selected");
+		}
 		$.ajax({
 		type: "POST",
 		url:"/piano",
@@ -37,7 +47,6 @@ $(function(){
 			// console.log(data);
 			// }
 		}).done(function(data){
-			
 			// console.log(piano_return);
 		});
 	});
@@ -64,19 +73,8 @@ function changeAll(data){
 }
 
 function playAll() {
-	String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
-	var key = "my_piano";
-	if ($("#piano1").attr("class").search(key) <= 0) {
-      window.file = "gymlow.mid";
-    } else if ($("#piano2").attr("class").search(key) <= 0){
-			window.file = "gymhigh.mid";
-	} else {
-		playNote();
-			window.file = "bad";
-		console.log("no piano selected");
-	}
-		playFile(file);
-		console.log(file);
+		playFile(track);
+		console.log(track);
 }
 
 var pusher = new Pusher('778221c8f338a6510736');
@@ -103,10 +101,10 @@ function playNote() {
   });
 }
 
-function playFile(file) {
-		MIDI.Player.loadFile(file, function(e){
+function playFile(track) {
+		MIDI.Player.loadFile(track, function(e){
     console.log("playfile");
-    MIDI.Player.start(); 
+    MIDI.Player.start();
   });
 }
 
@@ -137,9 +135,9 @@ Pusher.log = function(message) {
 
 
 $( document ).ready(function() {
-	var file;
 	var selected_piano;
 	var piano_return;
+	var playNote;
 	// var selected_piano = $('.selected');
 });
 
