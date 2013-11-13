@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <script>
-var piano1;
 //////////PUSHER//////////////////////
 // Enable pusher logging - don't include this in production
 // Pusher.log = function(message) {
@@ -24,7 +23,7 @@ channel.bind('my_event', function(data) {
   // alert('boom');
   // console.log(data.message);
   // console.log("yay");
-  piano1 = data;
+  // piano1 = data;
   changeAll(data);
   // playFile("/Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
 });
@@ -35,8 +34,8 @@ channel.bind('my_event', function(data) {
 
 <div id = "info">
   <h1> Erik Satie Flashmob </h1>
-  <a href="#" class="button button-flat-primary">Join Flashmob</a>
-  <a href="#" class="button button-flat-primary">Start Flashmob</a>
+  <div class="button button-flat-primary">Join Flashmob</div>
+  <div class id = "playbtn" class="button button-flat-primary">Start Flashmob</div>
   <p>What is this? </p>
 </div>
 

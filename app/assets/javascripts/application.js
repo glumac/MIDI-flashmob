@@ -17,17 +17,15 @@
 
 
 var file;
+var selected_piano;
+var piano_return;
 
 
-$(function(){
-	
-
+// $(function(){
 	$(".piano").click(function() {
-		
-		playNote();
-		$( this ).fadeTo( "slow", 0.33 );
+		// $( this ).fadeTo( "slow", 0.33 );
 		$( this ).addClass( "my_piano" );
-		var selected_piano = $(this).attr('id');
+		selected_piano = $(this).attr('id');
 		// console.log($(this).attr('id'));
 		$.ajax({
 		type: "POST",
@@ -43,10 +41,7 @@ $(function(){
 			// console.log(piano_return);
 		});
 	});
-	});
-
-
-
+	// });
 
 function changeAll(data){
 	console.log("test test");
@@ -94,14 +89,14 @@ function playFile(file) {
       playFile("/gymlow.mid");
   });
 
-  // $("#piano2").click(function() {
-		// 	playFile("Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
-  // });
+  $("#piano2").click(function() {
+			playFile("Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
+  });
 
-  // $("#piano1").click(function() {
-  //     playNote();
-  //     // playFile("/gymlow.mid");
-  // });
+  $("#piano1").click(function() {
+      playNote();
+      // playFile("/gymlow.mid");
+  });
 
 
 
@@ -117,7 +112,9 @@ Pusher.log = function(message) {
 
 
 $( document ).ready(function() {
-	playNote();
+	var file;
+	var selected_piano;
+	var piano_return;
 	// var selected_piano = $('.selected');
 });
 
