@@ -21,15 +21,14 @@ var selected_piano;
 var piano_return;
 
 
+// When an image is clicked, that part is assigned.  An ajax call is sent and pusher fades out that image in other users' browsers
 $(function(){
 	$(".piano").click(function() {
 		playNote();
-		// $( this ).fadeTo( "slow", 0.33 );
 		String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
 		var key = "my_piano";
 		$( this ).addClass( "my_piano" );
 		selected_piano = $(this).attr('id');
-		// console.log($(this).attr('id'));
 		if ($("#piano1").attr("class").search(key) <= 0) {
       window.track = "gymlow2.mid";
     } else if ($("#piano2").attr("class").search(key) <= 0){
@@ -42,28 +41,12 @@ $(function(){
 		url:"/piano",
 		dataType:'json',
 		data: {piano: selected_piano},
-   //  success:function(data){
-			// $(this).addClass("selected");
-			// console.log(data);
-			// }
 		}).done(function(data){
-			// console.log(piano_return);
 		});
 	});
 	});
 
-$(function(){
-	$(".playbtn").click(function() {
-		$.ajax({
-		type: "POST",
-		url:"/play",
-		dataType:'json',
-		data: {nil: "nil"},
-		}).done(function(data){
-		});
-	});
-});
-
+// Fades out an image when a user has selected it
 function changeAll(data){
 	console.log("test test");
 	var piano = data.piano;
@@ -72,18 +55,7 @@ function changeAll(data){
 	el.addClass("selected");
 }
 
-function playAll() {
-		playFile(track);
-		console.log(track);
-}
-
-var pusher = new Pusher('778221c8f338a6510736');
-var channel = pusher.subscribe('test_channel');
-channel.bind('play_all', function(data) {
-  alert('boom');
-  alert(data.message);
-});
-
+//plays an individual MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if a note is not played first before a file is loaded. 
 function playNote() {
   MIDI.loadPlugin({
     soundfontUrl: "soundfont/",
@@ -101,6 +73,7 @@ function playNote() {
   });
 }
 
+//plays a MIDI track
 function playFile(track) {
 		MIDI.Player.loadFile(track, function(e){
     console.log("playfile");
@@ -108,18 +81,33 @@ function playFile(track) {
   });
 }
 
-  $("#playbtn").click(function() {
-     playAll();
-  });
 
-  $("#piano2").click(function() {
-			playFile("Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
-  });
+//starts playing the selected MIDI track.  I can probably merge this function with playFile
+function playAll() {
+		playFile(track);
+		console.log(track);
+};
 
-  $("#piano1").click(function() {
-      playNote();
-      // playFile("/gymlow.mid");
-  });
+
+$("#playbtn").click(function() {
+		$.ajax({
+		type: "POST",
+		url:"/play",
+		dataType:'json',
+		data: {piano: "selected_piano"},
+		}).done(function(data){
+			console.log(data)
+		});
+});
+
+  // $("#piano2").click(function() {
+		// 	playFile("Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
+  // });
+
+  // $("#piano1").click(function() {
+  //     playNote();
+  //     // playFile("/gymlow.mid");
+  // });
 
 
 
@@ -130,8 +118,6 @@ Pusher.log = function(message) {
     window.console.log(message);
   }
 };
-
-
 
 
 $( document ).ready(function() {

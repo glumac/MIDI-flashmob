@@ -17,16 +17,22 @@
 //   console.log(data.message);
 // });
 
+var play_all_event = new CustomEvent("play_all")
 var pusher = new Pusher('778221c8f338a6510736');
 var channel = pusher.subscribe('test_channel');
+var callback = function(data) {};
+
 channel.bind('my_event', function(data) {
-  // alert('boom');
-  // console.log(data.message);
-  // console.log("yay");
-  // piano1 = data;
   changeAll(data);
-  // playFile("/Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
+  channel.unbind('my_event', callback);
 });
+
+channel.bind('play_all', function(data) {
+  alert('boom');
+  playAll();
+  channel.unbind('play_all', callback);
+});
+
 
 </script>
 </head>
@@ -35,7 +41,7 @@ channel.bind('my_event', function(data) {
 <div id = "info">
   <h1> Erik Satie Flashmob </h1>
   <div class="button button-flat-primary">Join Flashmob</div>
-  <div id = "playbtn" class="button button-flat-primary">Start Flashmob</div>
+  <div id = "playbtn" class="button button-flat-primary">Play</div>
   <p>What is this? </p>
 </div>
 

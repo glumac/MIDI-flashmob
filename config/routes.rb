@@ -6,11 +6,11 @@ MidiFlashmob::Application.routes.draw do
 
   get '/piano' => 'flashmob#piano'
 
-  get '/boom' => 'flashmob#boom'
+  get '/play' => 'flashmob#play'
 
-  post '/boom' => 'flashmob#boom'
+  post '/play' => 'flashmob#play'
     
-  get '/controller/:piano_num', to: 'flashmob#controllers'
+  # get '/controller/:piano_num', to: 'flashmob#controllers'
 
 
     # get '/controller/:piano_num', to: 'home#controllers'
