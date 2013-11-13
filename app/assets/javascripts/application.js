@@ -16,11 +16,14 @@
 //= require_tree .
 
 
-var file = "test";
+var file;
 
 
-function clickPiano() {
+$(function(){
+	
+
 	$(".piano").click(function() {
+		
 		playNote();
 		$( this ).fadeTo( "slow", 0.33 );
 		$( this ).addClass( "my_piano" );
@@ -40,13 +43,15 @@ function clickPiano() {
 			// console.log(piano_return);
 		});
 	});
-}
+	});
+
+
 
 
 function changeAll(data){
 	console.log("test test");
 	var piano = data.piano;
-	// console.log(piano);
+	console.log(piano);
 	var el = $("#"+piano);
 	el.addClass("selected");
 }
@@ -89,24 +94,24 @@ function playFile(file) {
       playFile("/gymlow.mid");
   });
 
-  $("#piano2").click(function() {
-			playFile("Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
-  });
+  // $("#piano2").click(function() {
+		// 	playFile("Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
+  // });
 
-  $("#piano1").click(function() {
-      playNote();
-      // playFile("/gymlow.mid");
-  });
+  // $("#piano1").click(function() {
+  //     playNote();
+  //     // playFile("/gymlow.mid");
+  // });
 
 
 
-// //////////PUSHER//////////////////////
-// // Enable pusher logging - don't include this in production
-// Pusher.log = function(message) {
-//   if (window.console && window.console.log) {
-//     window.console.log(message);
-//   }
-// };
+//////////PUSHER//////////////////////
+// Enable pusher logging - don't include this in production
+Pusher.log = function(message) {
+  if (window.console && window.console.log) {
+    window.console.log(message);
+  }
+};
 
 
 
