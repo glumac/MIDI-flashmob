@@ -22,20 +22,36 @@ var piano_return;
 
 
 // When an image is clicked, that part is assigned.  An ajax call is sent and pusher fades out that image in other users' browsers
+// $(function(){
+// 	$(".piano").click(function() {
+// 		playNote();
+// 		String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
+// 		var key = "my_piano";
+// 		$( this ).addClass( "my_piano" );
+// 		selected_piano = $(this).attr('id');
+// 		if ($("#piano1").attr("class").search(key) <= 0) {
+//       window.track = "gymlow2.mid";
+//     } else if ($("#piano2").attr("class").search(key) <= 0){
+// 			window.track = "gymhigh.mid";
+// 		} else {
+// 		console.log("no piano selected");
+// 		}
+// 		$.ajax({
+// 		type: "POST",
+// 		url:"/piano",
+// 		dataType:'json',
+// 		data: {piano: selected_piano},
+// 		}).done(function(data){
+// 		});
+// 	});
+// 	});
+
 $(function(){
-	$(".piano").click(function() {
+	$("#join").click(function() {
+		$("#pianos").append('<li class = "piano"><img src = "satie.png" width="175px"></li>');
 		playNote();
-		String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
-		var key = "my_piano";
-		$( this ).addClass( "my_piano" );
+		$("li:last").addClass("my_piano");
 		selected_piano = $(this).attr('id');
-		if ($("#piano1").attr("class").search(key) <= 0) {
-      window.track = "gymlow2.mid";
-    } else if ($("#piano2").attr("class").search(key) <= 0){
-			window.track = "gymhigh.mid";
-		} else {
-		console.log("no piano selected");
-		}
 		$.ajax({
 		type: "POST",
 		url:"/piano",
@@ -44,7 +60,7 @@ $(function(){
 		}).done(function(data){
 		});
 	});
-	});
+});
 
 // Fades out an image when a user has selected it
 function changeAll(data){

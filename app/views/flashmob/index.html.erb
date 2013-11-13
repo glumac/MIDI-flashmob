@@ -23,7 +23,7 @@ var channel = pusher.subscribe('test_channel');
 var callback = function(data) {};
 
 channel.bind('my_event', function(data) {
-  changeAll(data);
+  $("#pianos").append('<li class = "piano selected"><img src = "satie.png" width="175px"></li>');
   channel.unbind('my_event', callback);
 });
 
@@ -39,7 +39,7 @@ channel.bind('play_all', function(data) {
 
 <div id = "info">
   <h1> Erik Satie Flashmob </h1>
-  <div class="button button-flat-primary">Join Flashmob</div>
+  <div id ="join" class="button button-flat-primary">Join Flashmob</div>
   <div id = "playbtn" class="button button-flat-primary">Play</div>
   <p>What is this? </p>
 </div>
@@ -47,13 +47,11 @@ channel.bind('play_all', function(data) {
 <div id = "wrapper">
   <ul id = "pianos">
     <li class = "piano" id="piano1">
-      <h2>Piano 1</h2>
       <img src = "satie.png" width="175px" >
     </li>
     <li class ="piano"  id="piano2">
-      <h2>Piano 2</h2>
       <img id src = "satie.png" width="175px">
-    </li>'
+    </li>
   </ul>
 </div>
 

@@ -29,7 +29,8 @@
 #wrapper {
 	margin-left:auto;
 	margin-right:auto;
-	width:450px;
+	width:80%;
+	height: 100%;
 	text-align: center;
 }
 
