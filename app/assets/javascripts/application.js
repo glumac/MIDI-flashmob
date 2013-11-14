@@ -127,7 +127,32 @@ $( document ).ready(function() {
 	var selected_piano;
 	var piano_return;
 	var playNote;
-	// var selected_piano = $('.selected');
+	
+  ////// Pusher - initialize
+  var play_all_event = new CustomEvent("play_all");
+  var pusher = new Pusher('778221c8f338a6510736');
+  var channel = pusher.subscribe('test_channel');
+  var callback = function(data) {};
+
+
+  ///// Pusher - When a user joins adds images to other users' screens 
+  channel.bind('my_event', function(data) {
+    var key = "just_added";
+    if ($('#pianos li').length === 0 || $("li:last").attr("class").search(key) === -1) {
+      $("#pianos").append('<li class = "piano selected"><img src = "satie.png" width="175px"></li>');
+      }
+    channel.unbind('my_event', callback);
+    $(".just_added").removeClass('just_added');
+    $(".just_added").unbind("search");
+  });
+
+  ///// Pusher - Plays track 
+  channel.bind('play_all', function(data) {
+    assignPart();
+    playAll();
+    channel.unbind('play_all', callback);
+  });
+
 });
 
 
