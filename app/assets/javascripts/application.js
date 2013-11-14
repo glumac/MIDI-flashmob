@@ -276,7 +276,7 @@ $( document ).ready(function() {
 window.onload = function () {
 	MIDI.loadPlugin({
 		soundfontUrl: "FluidR3_GM/",
-		instruments: [ "rock_organ"],
+		instruments: ["rock_organ"],
 		callback: function() {
 			MIDI.programChange(0, 18);
 			for (var n = 0; n < 1; n ++) {
