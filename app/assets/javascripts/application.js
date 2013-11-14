@@ -155,7 +155,6 @@ function playFile(track) {
 				console.log("4");
 		});
 	});
-
 	$(function(){
 		$("li:nth-child(5) img").click(function() {
 				MIDI.programChange(0, 52);
