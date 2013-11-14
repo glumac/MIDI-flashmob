@@ -21,12 +21,17 @@ var selected_piano;
 var piano_return;
 
 
+
+
+
 //joins mob, sends ajax/pusher call to other page viewers, and prevents user from joining twice
 $(function(){
 	$("#join").click(function() {
 		$("#pianos").append('<li class = "piano"><img src = "satie.png" width="175px"></li>');
 		playNote();
 		$("li:last").addClass("my_piano just_added");
+		assignPart();
+		loadFile(track);
 		selected_piano = $(this).attr('id');
 		$.ajax({
 		type: "POST",
@@ -46,16 +51,27 @@ $(function(){
 
 /////assigns correct part to player 
 
-function assignPart(){
+function assignPart(track){
 	var key2 = "my_piano";
-  if ($("li:nth-child(1)").attr("class").search(key2) < 0){
-		window.track = "gymlow2.mid";
-	} else if ($("li:nth-child(2)").attr("class").search(key2) < 0){
-		window.track = "gymhigh.mid";
+  if ($("li:nth-child(1)").attr("class").search(key2) > 0){
+		window.track = "satie1.mid";
+	} else if ($("li:nth-child(2)").attr("class").search(key2) > 0){
+		window.track = "satie2.mid";
+	} else if ($("li:nth-child(3)").attr("class").search(key2) > 0){
+		window.track = "satie3.mid";
+	} else if ($("li:nth-child(4)").attr("class").search(key2) > 0){
+		window.track = "satie4.mid";
+	} else if ($("li:nth-child(5)").attr("class").search(key2) > 0){
+		window.track = "satie5.mid";
+	} else if ($("li:nth-child(6)").attr("class").search(key2) > 0){
+		window.track = "satie6.mid";
 	} else {
-		playNote();
+		window.track = "satie1.mid";
 	}
+	console.log(track + "loaded");
 }
+
+
 
 
 //plays an individual MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if a note is not played first before a file is loaded. 
@@ -76,13 +92,18 @@ function playNote() {
   });
 }
 
-//plays a MIDI track
-function playFile(track) {
+//loads a MIDI track
+function loadFile(track) {
 		MIDI.Player.loadFile(track, function(e){
-    console.log("playfile");
-    MIDI.Player.start();
+    console.log("file");
   });
 }
+
+//plays a MIDI track
+function playFile(track) {
+    MIDI.Player.start(track);
+}
+
 
 
 //starts playing the selected MIDI track.  I can probably merge this function with playFile
@@ -147,9 +168,8 @@ $( document ).ready(function() {
   });
 
   ///// Pusher - Plays track 
-  channel.bind('play_all', function(data) {
-    assignPart();
-    playAll();
+  channel.bind('play_all', function(data, track) {
+    playFile(track);
     channel.unbind('play_all', callback);
   });
 
