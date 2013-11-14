@@ -21,13 +21,12 @@ var selected_piano;
 var piano_return;
 
 
-
-
+//joins mob, sends ajax/pusher call to other page viewers, and prevents user from joining twice
 $(function(){
 	$("#join").click(function() {
 		$("#pianos").append('<li class = "piano"><img src = "satie.png" width="175px"></li>');
 		playNote();
-		$("li:last").addClass("my_piano");
+		$("li:last").addClass("my_piano just_added");
 		selected_piano = $(this).attr('id');
 		$.ajax({
 		type: "POST",
@@ -44,14 +43,20 @@ $(function(){
 	});
 });
 
-// Fades out an image when a user has selected it
-function changeAll(data){
-	console.log("test test");
-	var piano = data.piano;
-	console.log(piano);
-	var el = $("#"+piano);
-	el.addClass("selected");
+
+/////assigns correct part to player 
+
+function assignPart(){
+	var key2 = "my_piano";
+  if ($("li:nth-child(1)").attr("class").search(key2) < 0){
+		window.track = "gymlow2.mid";
+	} else if ($("li:nth-child(2)").attr("class").search(key2) < 0){
+		window.track = "gymhigh.mid";
+	} else {
+		playNote();
+	}
 }
+
 
 //plays an individual MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if a note is not played first before a file is loaded. 
 function playNote() {
