@@ -7,6 +7,9 @@ gem 'rails', '4.0.0'
 # Use postgresql as the database for Active Record
 # gem 'pg'
 
+# thin server for speed
+gem "thin", "~> 1.6.1"
+
 # Using Pusher API to keep port open 
 gem 'pusher'
 
