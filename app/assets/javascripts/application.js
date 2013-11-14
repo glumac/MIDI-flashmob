@@ -28,7 +28,7 @@ var piano_return;
 $(function(){
 	$("#join").click(function() {
 		$("#pianos").append('<li class = "piano"><img src = "satie.png" width="175px"></li>');
-		playNote();
+		// playNote();
 		$("li:last").addClass("my_piano just_added");
 		assignPart();
 		loadFile(track);
@@ -77,7 +77,7 @@ function assignPart(track){
 //plays an individual MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if a note is not played first before a file is loaded. 
 function playNote() {
   MIDI.loadPlugin({
-    soundfontUrl: "soundfont/",
+    soundfontUrl: "FluidR3_GM/",
     instrument: "acoustic_grand_piano",
     callback: function() {
       var delay = 0; // play one note every quarter second
@@ -103,6 +103,8 @@ function loadFile(track) {
 function playFile(track) {
     MIDI.Player.start(track);
 }
+
+
 
 
 
@@ -174,5 +176,26 @@ $( document ).ready(function() {
   });
 
 });
+
+
+window.onload = function () {
+	MIDI.loadPlugin({
+		soundfontUrl: "FluidR3_GM/",
+		instruments: [ "rock_organ", "acoustic_guitar_nylon" ],
+		callback: function() {
+			MIDI.programChange(0, 18);
+			MIDI.programChange(1, 18);
+			for (var n = 2; n < 0; n ++) {
+				var delay = n / 4; // play one note every quarter second
+				var note = MIDI.pianoKeyOffset + n; // the MIDI note
+				var velocity = 127; // how hard the note hits
+				// play the note
+				MIDI.noteOn(0, note, velocity, delay);
+				// play the some note 3-steps up
+				MIDI.noteOn(1, note + 3, velocity, delay);
+			}
+		}
+	});
+};
 
 
