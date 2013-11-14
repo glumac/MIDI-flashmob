@@ -129,7 +129,86 @@ function loadFile(track) {
 
 //plays a MIDI track
 function playFile(track) {
-    MIDI.Player.start(track);
+	MIDI.Player.start(track);
+	 $(function(){
+		$("li:nth-child(1) img").click(function() {
+				MIDI.programChange(0, 52);
+				console.log("1");
+		});
+	});
+	$(function(){
+		$("li:nth-child(2) img").click(function() {
+				MIDI.programChange(0, 125);
+				console.log("2");
+		});
+	});
+	$(function(){
+		$("li:nth-child(3) img").click(function() {
+				MIDI.programChange(0, 18);
+				console.log("3");
+		});
+	});
+
+	$(function(){
+		$("li:nth-child(4) img").click(function() {
+				MIDI.programChange(0, 122);
+				console.log("4");
+		});
+	});
+
+	$(function(){
+		$("li:nth-child(5) img").click(function() {
+				MIDI.programChange(0, 52);
+				console.log("flute");
+		});
+		$("li:nth-child(6) img").click(function() {
+				MIDI.programChange(0, 30);
+				console.log("flute");
+		});
+		$("li:nth-child(7)").click(function() {
+				MIDI.programChange(0, 52);
+				console.log("flute");
+		});
+		$("li:nth-child(8)").click(function() {
+				MIDI.programChange(0, 6);
+		});
+		$("li:nth-child(9)").click(function() {
+				MIDI.programChange(0, 55);
+		});
+		$("li:nth-child(10)").click(function() {
+				MIDI.programChange(0, 24);
+		});
+		$("li:nth-child(11)").click(function() {
+				MIDI.programChange(0, 56);
+		});
+		$("li:nth-child(12)").click(function() {
+				MIDI.programChange(0, 45);
+		});
+		$("li:nth-child(13)").click(function() {
+				MIDI.programChange(0, 13);
+		});
+		$("li:nth-child(14)").click(function() {
+				MIDI.programChange(0, 95);
+		});
+		$("li:nth-child(15)").click(function() {
+				MIDI.programChange(0, 14);
+		});
+		$("li:nth-child(16)").click(function() {
+				MIDI.programChange(0, 56);
+		});
+		$("li:nth-child(17)").click(function() {
+				MIDI.programChange(0, 72);
+		});
+		$("li:nth-child(18)").click(function() {
+				MIDI.programChange(0, 59);
+		});
+		$("li:nth-child(19)").click(function() {
+				MIDI.programChange(0, 123);
+		});
+		$("li:nth-child(120)").click(function() {
+				MIDI.programChange(0, 87);
+		});
+	});
 }
 
 
@@ -137,7 +216,7 @@ function playFile(track) {
 function playAll() {
 		playFile(track);
 		console.log(track);
-};
+}
 
 
 
@@ -162,73 +241,6 @@ $("#playbtn").click(function() {
 			console.log(data);
 		});
 });
-
-
-$("li:nth-child(1)").click(function() {
-		MIDI.programChange(0, 75);
-		console.log(flute);
-});
-$("li:nth-child(2)").click(function() {
-		MIDI.programChange(0, 75);
-		console.log(flute);
-});
-$("li:nth-child(3)").click(function() {
-		MIDI.programChange(0, 75);
-		console.log(flute);
-});
-$("li:nth-child(4)").click(function() {
-		MIDI.programChange(0, 75);
-		console.log(flute);
-});
-$("li:nth-child(5)").click(function() {
-		MIDI.programChange(0, 9);
-});
-$("li:nth-child(6)").click(function() {
-		MIDI.programChange(0, 64);
-});
-$("li:nth-child(7)").click(function() {
-		MIDI.programChange(0, 48);
-});
-$("li:nth-child(8)").click(function() {
-		MIDI.programChange(0, 6);
-});
-$("li:nth-child(9)").click(function() {
-		MIDI.programChange(0, 55);
-});
-$("li:nth-child(10)").click(function() {
-		MIDI.programChange(0, 24);
-});
-$("li:nth-child(11)").click(function() {
-		MIDI.programChange(0, 56);
-});
-$("li:nth-child(12)").click(function() {
-		MIDI.programChange(0, 45);
-});
-$("li:nth-child(13)").click(function() {
-		MIDI.programChange(0, 13);
-});
-$("li:nth-child(14)").click(function() {
-		MIDI.programChange(0, 95);
-});
-$("li:nth-child(15)").click(function() {
-		MIDI.programChange(0, 14);
-});
-$("li:nth-child(16)").click(function() {
-		MIDI.programChange(0, 56);
-});
-$("li:nth-child(17)").click(function() {
-		MIDI.programChange(0, 72);
-});
-$("li:nth-child(18)").click(function() {
-		MIDI.programChange(0, 59);
-});
-$("li:nth-child(19)").click(function() {
-		MIDI.programChange(0, 123);
-});
-$("li:nth-child(120)").click(function() {
-		MIDI.programChange(0, 87);
-});
-
 
 
 
@@ -276,13 +288,13 @@ $( document ).ready(function() {
 window.onload = function () {
 	MIDI.loadPlugin({
 		soundfontUrl: "FluidR3_GM/",
-		instruments: ["rock_organ"],
+		instruments: ["distortion_guitar", "choir_aahs", "helicopter", "rock_organ", "seashore"],
 		callback: function() {
 			MIDI.programChange(0, 18);
 			for (var n = 0; n < 1; n ++) {
 				var delay = n / 4; // play one note every quarter second
 				var note = MIDI.pianoKeyOffset + n; // the MIDI note
-				var velocity = 127; // how hard the note hits
+				var velocity = 1; // how hard the note hits
 				// play the note
 				MIDI.noteOn(0, note, velocity, delay);
 				// play the some note 3-steps up
@@ -291,5 +303,13 @@ window.onload = function () {
 		}
 	});
 };
+
+
+MIDI.loadPlugin({
+		soundfontUrl: "FluidR3_GM/",
+		instruments: ["choir_aahs"],
+		callback: function() {
+		}
+});
 
 
