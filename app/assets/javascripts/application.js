@@ -54,19 +54,47 @@ $(function(){
 function assignPart(track){
 	var key2 = "my_piano";
   if ($("li:nth-child(1)").attr("class").search(key2) > 0){
-		window.track = "satie1.mid";
+		window.track = "gym1.mid";
 	} else if ($("li:nth-child(2)").attr("class").search(key2) > 0){
-		window.track = "satie2.mid";
+		window.track = "gym2.mid";
 	} else if ($("li:nth-child(3)").attr("class").search(key2) > 0){
-		window.track = "satie3.mid";
+		window.track = "gym3.mid";
 	} else if ($("li:nth-child(4)").attr("class").search(key2) > 0){
-		window.track = "satie4.mid";
+		window.track = "gym4.mid";
 	} else if ($("li:nth-child(5)").attr("class").search(key2) > 0){
-		window.track = "satie5.mid";
+		window.track = "gym5.mid";
 	} else if ($("li:nth-child(6)").attr("class").search(key2) > 0){
-		window.track = "satie6.mid";
+		window.track = "gym6.mid";
+	} else if ($("li:nth-child(7)").attr("class").search(key2) > 0){
+		window.track = "gym7.mid";
+	} else if ($("li:nth-child(8)").attr("class").search(key2) > 0){
+		window.track = "gym8.mid";
+	} else if ($("li:nth-child(9)").attr("class").search(key2) > 0){
+		window.track = "gym9.mid";
+	} else if ($("li:nth-child(10)").attr("class").search(key2) > 0){
+		window.track = "gym10.mid";
+	} else if ($("li:nth-child(11)").attr("class").search(key2) > 0){
+		window.track = "gym11.mid";
+	} else if ($("li:nth-child(12)").attr("class").search(key2) > 0){
+		window.track = "gym12.mid";
+	} else if ($("li:nth-child(13)").attr("class").search(key2) > 0){
+		window.track = "gym13.mid";
+	} else if ($("li:nth-child(14)").attr("class").search(key2) > 0){
+		window.track = "gym14.mid";
+	} else if ($("li:nth-child(15)").attr("class").search(key2) > 0){
+		window.track = "gym15.mid";
+	} else if ($("li:nth-child(16)").attr("class").search(key2) > 0){
+		window.track = "gym16.mid";
+	} else if ($("li:nth-child(17)").attr("class").search(key2) > 0){
+		window.track = "gym17.mid";
+	} else if ($("li:nth-child(18)").attr("class").search(key2) > 0){
+		window.track = "gym18.mid";
+	} else if ($("li:nth-child(19)").attr("class").search(key2) > 0){
+		window.track = "gym19.mid";
+	} else if ($("li:nth-child(20)").attr("class").search(key2) > 0){
+		window.track = "gym20.mid";
 	} else {
-		window.track = "satie1.mid";
+		window.track = "gym2.mid";
 	}
 	console.log(track + "loaded");
 }
@@ -105,9 +133,6 @@ function playFile(track) {
 }
 
 
-
-
-
 //starts playing the selected MIDI track.  I can probably merge this function with playFile
 function playAll() {
 		playFile(track);
@@ -115,16 +140,6 @@ function playAll() {
 };
 
 
-$("#playbtn").click(function() {
-		$.ajax({
-		type: "POST",
-		url:"/play",
-		dataType:'json',
-		data: {piano: "selected_piano"},
-		}).done(function(data){
-			console.log(data)
-		});
-});
 
   // $("#piano2").click(function() {
 		// 	playFile("Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
@@ -134,6 +149,86 @@ $("#playbtn").click(function() {
   //     playNote();
   //     // playFile("/gymlow.mid");
   // });
+
+
+
+$("#playbtn").click(function() {
+		$.ajax({
+		type: "POST",
+		url:"/play",
+		dataType:'json',
+		data: {piano: "selected_piano"},
+		}).done(function(data){
+			console.log(data);
+		});
+});
+
+
+$("li:nth-child(1)").click(function() {
+		MIDI.programChange(0, 75);
+		console.log(flute);
+});
+$("li:nth-child(2)").click(function() {
+		MIDI.programChange(0, 75);
+		console.log(flute);
+});
+$("li:nth-child(3)").click(function() {
+		MIDI.programChange(0, 75);
+		console.log(flute);
+});
+$("li:nth-child(4)").click(function() {
+		MIDI.programChange(0, 75);
+		console.log(flute);
+});
+$("li:nth-child(5)").click(function() {
+		MIDI.programChange(0, 9);
+});
+$("li:nth-child(6)").click(function() {
+		MIDI.programChange(0, 64);
+});
+$("li:nth-child(7)").click(function() {
+		MIDI.programChange(0, 48);
+});
+$("li:nth-child(8)").click(function() {
+		MIDI.programChange(0, 6);
+});
+$("li:nth-child(9)").click(function() {
+		MIDI.programChange(0, 55);
+});
+$("li:nth-child(10)").click(function() {
+		MIDI.programChange(0, 24);
+});
+$("li:nth-child(11)").click(function() {
+		MIDI.programChange(0, 56);
+});
+$("li:nth-child(12)").click(function() {
+		MIDI.programChange(0, 45);
+});
+$("li:nth-child(13)").click(function() {
+		MIDI.programChange(0, 13);
+});
+$("li:nth-child(14)").click(function() {
+		MIDI.programChange(0, 95);
+});
+$("li:nth-child(15)").click(function() {
+		MIDI.programChange(0, 14);
+});
+$("li:nth-child(16)").click(function() {
+		MIDI.programChange(0, 56);
+});
+$("li:nth-child(17)").click(function() {
+		MIDI.programChange(0, 72);
+});
+$("li:nth-child(18)").click(function() {
+		MIDI.programChange(0, 59);
+});
+$("li:nth-child(19)").click(function() {
+		MIDI.programChange(0, 123);
+});
+$("li:nth-child(120)").click(function() {
+		MIDI.programChange(0, 87);
+});
+
 
 
 
@@ -181,10 +276,9 @@ $( document ).ready(function() {
 window.onload = function () {
 	MIDI.loadPlugin({
 		soundfontUrl: "FluidR3_GM/",
-		instruments: [ "rock_organ", "acoustic_guitar_nylon" ],
+		instruments: [ "rock_organ", "pan_flute" ],
 		callback: function() {
 			MIDI.programChange(0, 18);
-			MIDI.programChange(1, 18);
 			for (var n = 2; n < 0; n ++) {
 				var delay = n / 4; // play one note every quarter second
 				var note = MIDI.pianoKeyOffset + n; // the MIDI note
