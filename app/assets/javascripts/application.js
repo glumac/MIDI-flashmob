@@ -276,10 +276,10 @@ $( document ).ready(function() {
 window.onload = function () {
 	MIDI.loadPlugin({
 		soundfontUrl: "FluidR3_GM/",
-		instruments: [ "rock_organ", "pan_flute" ],
+		instruments: [ "rock_organ"],
 		callback: function() {
 			MIDI.programChange(0, 18);
-			for (var n = 2; n < 0; n ++) {
+			for (var n = 0; n < 1; n ++) {
 				var delay = n / 4; // play one note every quarter second
 				var note = MIDI.pianoKeyOffset + n; // the MIDI note
 				var velocity = 127; // how hard the note hits
