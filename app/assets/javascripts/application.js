@@ -174,6 +174,37 @@ $("#playbtn").click(function() {
 });
 
 
+// function listen(){
+// 	MIDI.Player.removeListener(); // removes current listener.
+// 	MIDI.Player.addListener(function(data) { // set it to your own function!
+// 		var now = data.now; // where we are now
+// 		var end = data.end; // time when song ends
+// 		var channel = data.channel; // channel note is playing on
+// 		var message = data.message; // 128 is noteOff, 144 is noteOn
+// 		var note = data.note; // the note
+// 		var velocity = data.velocity; // the velocity of the note
+// 		var col = 0x0;
+// 		var hexNote = note.toString(16);
+// 		if (col.toString(10) < 'FFFFFF'.toString(10)) {
+// 			col = (col.toString(10) - hexNote.toString(10)).toString(16);
+// 			// console.log(hexNote);
+// 			// console.log("true");
+// 			console.log(col);
+// 			jQuery(".satie").animate({
+//       	backgroundColor: '0x' + col
+//  			}, 10 );
+// 		} else {
+// 			col = 0
+// 			console.log("false");	
+// 			jQuery(".satie").animate({
+//       backgroundColor: col
+//  			}, 500 );
+// 		};
+// 	});
+// }
+
+
+
 function listen(){
 	MIDI.Player.removeListener(); // removes current listener.
 	MIDI.Player.addListener(function(data) { // set it to your own function!
@@ -183,23 +214,28 @@ function listen(){
 		var message = data.message; // 128 is noteOff, 144 is noteOn
 		var note = data.note; // the note
 		var velocity = data.velocity; // the velocity of the note
-		var col = 0x0;
-		if (col < 0xFFFFFF) {
-			col = col + note;
-			console.log(col);
-			console.log("true");
+		// var col = 0x0;
+		// var hexNote = note.toString(16);
+		if (note < 50 && data.message === 144) {
+			console.log(note);
 			jQuery(".satie").animate({
-      	backgroundColor: col
- 			}, 500 );
-		} else {
-			col = 0
-			console.log("false");	
+      	backgroundColor: "purple"
+ 			}, 10000 );
+		} else if (note >= 50 && data.message === 144) {
+			console.log(note);	
 			jQuery(".satie").animate({
-      backgroundColor: col
- 			}, 500 );
+      backgroundColor: "yellow"
+ 			}, 10000 );
+ 			} else if (data.message === 128) {
+			console.log(note);	
+			jQuery(".satie").animate({
+      backgroundColor: "black"
+ 			}, 10000 );
 		};
 	});
 }
+
+
 
 
 function smooth(){
