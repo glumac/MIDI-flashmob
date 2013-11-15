@@ -187,11 +187,14 @@ function listen(){
 		if (col < 0xFFFFFF) {
 			col = col + note;
 			console.log(col);
-			jQuery("#satie").animate({
+			console.log("true");
+			jQuery(".satie").animate({
       	backgroundColor: col
  			}, 500 );
-		} else {col = 0;
-			jQuery("#satie").animate({
+		} else {
+			col = 0
+			console.log("false");	
+			jQuery(".satie").animate({
       backgroundColor: col
  			}, 500 );
 		};
@@ -207,7 +210,6 @@ function smooth(){
 	var end = data.end; // time when song ends
 	var events = data.events; // all the notes currently being processed
 	// then do what you want with the information!
-	console.log(events);
 	});
 }
 
@@ -259,33 +261,6 @@ $('#what').hover(function() {
 $('#what').mouseout(function() {
 		$('#description').addClass('hidden');
 });
-
-
-var animation_duration = 500;
-
-function animateMenuIn() {
-  $side_menu = $('#side-menu')
-  $side_menu.stop().animate({
-      left: '0px',
-      opacity: 1
-    }, 
-    animation_duration, 
-    "easeInOutQuad",
-    function() {
-      $side_menu.addClass('active');
-    }
-  );
-}
-function animateMenuOut() {
-  $side_menu = $('#side-menu')
-  $side_menu.stop().animate({right: '+200', opacity: 0.5}, animation_duration);
-  $side_menu.removeClass('active');
-}
-
-
-
-
-
 
 
 window.onload = function () {
