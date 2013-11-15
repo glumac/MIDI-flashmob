@@ -21,13 +21,10 @@ var selected_piano;
 var piano_return;
 
 
-
-
-
 //joins mob, sends ajax/pusher call to other page viewers, and prevents user from joining twice
 $(function(){
 	$("#join").click(function() {
-		$("#pianos").append('<li class = "piano"><img src = "satie.png" width="175px"></li>');
+		$("#pianos").append(' <li class = "piano"><img class="satie" src = "satie2.png" width="175px"></li>');
 		// playNote();
 		$("li:last").addClass("my_piano just_added");
 		assignPart();
@@ -100,8 +97,6 @@ function assignPart(track){
 }
 
 
-
-
 //plays an individual MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if a note is not played first before a file is loaded. 
 function playNote() {
   MIDI.loadPlugin({
@@ -130,7 +125,9 @@ function loadFile(track) {
 //plays a MIDI track
 function playFile(track) {
 	MIDI.Player.start(track);
-	 $(function(){
+	listen();
+	// smooth();
+		$(function(){
 		$("li:nth-child(1) img").click(function() {
 				MIDI.programChange(0, 52);
 				console.log("1");
@@ -155,59 +152,6 @@ function playFile(track) {
 				console.log("4");
 		});
 	});
-	$(function(){
-		$("li:nth-child(5) img").click(function() {
-				MIDI.programChange(0, 52);
-				console.log("flute");
-		});
-		$("li:nth-child(6) img").click(function() {
-				MIDI.programChange(0, 30);
-				console.log("flute");
-		});
-		$("li:nth-child(7)").click(function() {
-				MIDI.programChange(0, 52);
-				console.log("flute");
-		});
-		$("li:nth-child(8)").click(function() {
-				MIDI.programChange(0, 6);
-		});
-		$("li:nth-child(9)").click(function() {
-				MIDI.programChange(0, 55);
-		});
-		$("li:nth-child(10)").click(function() {
-				MIDI.programChange(0, 24);
-		});
-		$("li:nth-child(11)").click(function() {
-				MIDI.programChange(0, 56);
-		});
-		$("li:nth-child(12)").click(function() {
-				MIDI.programChange(0, 45);
-		});
-		$("li:nth-child(13)").click(function() {
-				MIDI.programChange(0, 13);
-		});
-		$("li:nth-child(14)").click(function() {
-				MIDI.programChange(0, 95);
-		});
-		$("li:nth-child(15)").click(function() {
-				MIDI.programChange(0, 14);
-		});
-		$("li:nth-child(16)").click(function() {
-				MIDI.programChange(0, 56);
-		});
-		$("li:nth-child(17)").click(function() {
-				MIDI.programChange(0, 72);
-		});
-		$("li:nth-child(18)").click(function() {
-				MIDI.programChange(0, 59);
-		});
-		$("li:nth-child(19)").click(function() {
-				MIDI.programChange(0, 123);
-		});
-		$("li:nth-child(120)").click(function() {
-				MIDI.programChange(0, 87);
-		});
-	});
 }
 
 
@@ -216,18 +160,6 @@ function playAll() {
 		playFile(track);
 		console.log(track);
 }
-
-
-
-  // $("#piano2").click(function() {
-		// 	playFile("Gymnopedie_1_Saya_Tomoko-s-gymno1.mid");
-  // });
-
-  // $("#piano1").click(function() {
-  //     playNote();
-  //     // playFile("/gymlow.mid");
-  // });
-
 
 
 $("#playbtn").click(function() {
@@ -242,6 +174,42 @@ $("#playbtn").click(function() {
 });
 
 
+function listen(){
+	MIDI.Player.removeListener(); // removes current listener.
+	MIDI.Player.addListener(function(data) { // set it to your own function!
+		var now = data.now; // where we are now
+		var end = data.end; // time when song ends
+		var channel = data.channel; // channel note is playing on
+		var message = data.message; // 128 is noteOff, 144 is noteOn
+		var note = data.note; // the note
+		var velocity = data.velocity; // the velocity of the note
+		var col = 0x0;
+		if (col < 0xFFFFFF) {
+			col = col + note;
+			console.log(col);
+			jQuery("#satie").animate({
+      	backgroundColor: col
+ 			}, 500 );
+		} else {col = 0;
+			jQuery("#satie").animate({
+      backgroundColor: col
+ 			}, 500 );
+		};
+	});
+}
+
+
+function smooth(){
+	// Smooth animation, interpolates between onMidiEvent calls;
+	MIDI.Player.clearAnimation(); // clears current animation.
+	MIDI.Player.setAnimation(function(data) {
+	var now = data.now; // where we are now
+	var end = data.end; // time when song ends
+	var events = data.events; // all the notes currently being processed
+	// then do what you want with the information!
+	console.log(events);
+	});
+}
 
 //////////PUSHER//////////////////////
 // Enable pusher logging - don't include this in production
@@ -268,7 +236,7 @@ $( document ).ready(function() {
   channel.bind('my_event', function(data) {
     var key = "just_added";
     if ($('#pianos li').length === 0 || $("li:last").attr("class").search(key) === -1) {
-      $("#pianos").append('<li class = "piano selected"><img src = "satie.png" width="175px"></li>');
+      $("#pianos").append('<li class = "piano selected"><img class="satie" src = "satie2.png" width="175px"></li>');
       }
     channel.unbind('my_event', callback);
     $(".just_added").removeClass('just_added');
@@ -282,6 +250,42 @@ $( document ).ready(function() {
   });
 
 });
+
+
+$('#what').hover(function() {
+		$('#description').removeClass('hidden');
+});
+
+$('#what').mouseout(function() {
+		$('#description').addClass('hidden');
+});
+
+
+var animation_duration = 500;
+
+function animateMenuIn() {
+  $side_menu = $('#side-menu')
+  $side_menu.stop().animate({
+      left: '0px',
+      opacity: 1
+    }, 
+    animation_duration, 
+    "easeInOutQuad",
+    function() {
+      $side_menu.addClass('active');
+    }
+  );
+}
+function animateMenuOut() {
+  $side_menu = $('#side-menu')
+  $side_menu.stop().animate({right: '+200', opacity: 0.5}, animation_duration);
+  $side_menu.removeClass('active');
+}
+
+
+
+
+
 
 
 window.onload = function () {
@@ -303,12 +307,5 @@ window.onload = function () {
 	});
 };
 
-
-MIDI.loadPlugin({
-		soundfontUrl: "FluidR3_GM/",
-		instruments: ["choir_aahs"],
-		callback: function() {
-		}
-});
 
 
