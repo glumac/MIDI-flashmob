@@ -20,7 +20,6 @@ var track;
 var selected_piano;
 var piano_return;
 
-
 //joins mob, sends ajax/pusher call to other page viewers, and prevents user from joining twice
 $(function(){
 	$("#join").click(function() {
@@ -45,8 +44,7 @@ $(function(){
 	});
 });
 
-
-/////assigns correct part to player 
+//assigns correct part to player 
 
 function assignPart(track){
 	var key2 = "my_piano";
@@ -97,7 +95,7 @@ function assignPart(track){
 }
 
 
-//plays an individual MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if a note is not played first before a file is loaded. 
+//plays an individual "silent" MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if some note is not played first before a file is loaded. 
 function playNote() {
   MIDI.loadPlugin({
     soundfontUrl: "FluidR3_GM/",
@@ -155,12 +153,11 @@ function playFile(track) {
 }
 
 
-//starts playing the selected MIDI track.  I can probably merge this function with playFile
+//starts playing the selected MIDI track.  Will later probably merge this function with playFile
 function playAll() {
 		playFile(track);
 		console.log(track);
 }
-
 
 $("#playbtn").click(function() {
 		$.ajax({
@@ -203,8 +200,6 @@ $("#playbtn").click(function() {
 // 	});
 // }
 
-
-
 function listen(){
 	MIDI.Player.removeListener(); // removes current listener.
 	MIDI.Player.addListener(function(data) { // set it to your own function!
@@ -234,9 +229,6 @@ function listen(){
 		};
 	});
 }
-
-
-
 
 function smooth(){
 	// Smooth animation, interpolates between onMidiEvent calls;

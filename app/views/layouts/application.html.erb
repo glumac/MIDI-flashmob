@@ -1,54 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>MidiFlashmob</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-
-
-     <!-- Google Font -->
-  <link href='http://fonts.googleapis.com/css?family=Alice' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Old+Standard+TT' rel='stylesheet' type='text/css'>
-
-
-
-		<!-- <Pusher> -->
-  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
- 
-</head>
-<body>
-
-<%= yield %>
- <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-</body>
+  <head>
+    <title>MidiFlashmob</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+      <!-- Google Font -->
+    <link href='http://fonts.googleapis.com/css?family=Alice' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Old+Standard+TT' rel='stylesheet' type='text/css'>
+    	<!-- <Pusher> -->
+    <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>   
+  </head>
+  <body>
+      <%= yield %>
+      <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  </body>
 </html>
 
-
-</script>
-
-   <!-- midi.js package -->
-   <script src="js/MIDI/AudioDetect.js" type="text/javascript"></script>
-   <script src="js/MIDI/LoadPlugin.js" type="text/javascript"></script>
-   <script src="js/MIDI/Plugin.js" type="text/javascript"></script>
-   <script src="js/MIDI/Player.js" type="text/javascript"></script>
-   <script src="js/Window/DOMLoader.XMLHttp.js" type="text/javascript"></script>
-   <script src="js/Window/DOMLoader.script.js" type="text/javascript"></script>
-   <!-- extras -->
-   <script src="inc/Base64.js" type="text/javascript"></script>
-   <script src="inc/base64binary.js" type="text/javascript"></script>
-       <!-- jasmid package -->
- <script src="inc/jasmid/stream.js"></script>
- <script src="inc/jasmid/midifile.js"></script>
- <script src="inc/jasmid/replayer.js"></script>
-
-
- 
-
-
-
-</body>
-</html>
+  <!-- midi.js package -->
+<script src="js/MIDI/AudioDetect.js" type="text/javascript"></script>
+<script src="js/MIDI/LoadPlugin.js" type="text/javascript"></script>
+<script src="js/MIDI/Plugin.js" type="text/javascript"></script>
+<script src="js/MIDI/Player.js" type="text/javascript"></script>
+<script src="js/Window/DOMLoader.XMLHttp.js" type="text/javascript"></script>
+<script src="js/Window/DOMLoader.script.js" type="text/javascript"></script>
+  <!-- extras -->
+<script src="inc/Base64.js" type="text/javascript"></script>
+<script src="inc/base64binary.js" type="text/javascript"></script>
+  <!-- jasmid package -->
+<script src="inc/jasmid/stream.js"></script>
+<script src="inc/jasmid/midifile.js"></script>
+<script src="inc/jasmid/replayer.js"></script>
 
 
 
