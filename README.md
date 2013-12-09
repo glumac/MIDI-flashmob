@@ -1,9 +1,6 @@
 #Erik Satie Flashmob
 
-![Satie Flashmob](http://glumac.net/satiescreenshot.png)
-
-### Make a flashmob online at [Erik Satie Flashmob](http://midi-flashmob.herokuapp.com/)
-
+#### Make a flashmob online at [Erik Satie Flashmob](http://midi-flashmob.herokuapp.com/)
 
 #####Erik Satie Flashmob is a Rails4 and MIDI Javascript experiment. 
 
@@ -18,7 +15,6 @@ The management of real-time synchronous part assignment and music play is contro
 *  <https://github.com/gleitz/MIDI.js> Javascript library
 *  <http://pusher.com/> Websocket API
 
-
 #####Background/Info:
 
 This site is a musical experiment inspired by early-20th-century Parisian composer Erik Satie.  Satie, who had ties to the avant-garde Dada movement,  preferred to call himself not musician, but a "phonometrician" (meaning "someone who measures sounds").  For this reason, beyond the basic organ on which all players being, several of the other sounds are absurd "instruments" such as a helicopter's whirling blades, and the division of parts between laptop "players" is intended to be asymmetrical and surprising.    
@@ -26,3 +22,5 @@ This site is a musical experiment inspired by early-20th-century Parisian compos
 ##### Coming soon: 
 
 Up next: Bolero Flashmob, and support for multiple mobs. 
+
+![Satie Flashmob](http://glumac.net/satiescreenshot.png)

@@ -20,32 +20,7 @@ var track;
 var selected_piano;
 var piano_return;
 
-//joins mob, sends ajax/pusher call to other page viewers, and prevents user from joining twice
-$(function(){
-	$("#join").click(function() {
-		$("#pianos").append(' <li class = "piano"><img class="satie" src = "satie2.png" width="175px"></li>');
-		// playNote();
-		$("li:last").addClass("my_piano just_added");
-		assignPart();
-		loadFile(track);
-		selected_piano = $(this).attr('id');
-		$.ajax({
-		type: "POST",
-		url:"/piano",
-		dataType:'json',
-		data: {piano: selected_piano},
-		}).done(function(data){
-		});
-		// $(".join").removeClass('join');
-		$('#join_span').text("     Joined!     ");
-		$("#join").unbind("click");
-		$("#join").addClass("clicked");
-		$("#join").removeAttr('id');
-	});
-});
-
 //assigns correct part to player 
-
 function assignPart(track){
 	var key2 = "my_piano";
   if ($("li:nth-child(1)").attr("class").search(key2) > 0){
@@ -94,7 +69,6 @@ function assignPart(track){
 	console.log(track + "loaded");
 }
 
-
 //plays an individual "silent" MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if some note is not played first before a file is loaded. 
 function playNote() {
   MIDI.loadPlugin({
@@ -124,6 +98,7 @@ function loadFile(track) {
 function playFile(track) {
 	MIDI.Player.start(track);
 	listen();
+	$('#play_span').text("Playing Gymnopédie No.1");
 	// smooth();
 		$(function(){
 		$("li:nth-child(1) img").click(function() {
@@ -158,47 +133,6 @@ function playAll() {
 		playFile(track);
 		console.log(track);
 }
-
-$("#playbtn").click(function() {
-		$.ajax({
-		type: "POST",
-		url:"/play",
-		dataType:'json',
-		data: {piano: "selected_piano"},
-		}).done(function(data){
-			console.log(data);
-		});
-});
-
-
-// function listen(){
-// 	MIDI.Player.removeListener(); // removes current listener.
-// 	MIDI.Player.addListener(function(data) { // set it to your own function!
-// 		var now = data.now; // where we are now
-// 		var end = data.end; // time when song ends
-// 		var channel = data.channel; // channel note is playing on
-// 		var message = data.message; // 128 is noteOff, 144 is noteOn
-// 		var note = data.note; // the note
-// 		var velocity = data.velocity; // the velocity of the note
-// 		var col = 0x0;
-// 		var hexNote = note.toString(16);
-// 		if (col.toString(10) < 'FFFFFF'.toString(10)) {
-// 			col = (col.toString(10) - hexNote.toString(10)).toString(16);
-// 			// console.log(hexNote);
-// 			// console.log("true");
-// 			console.log(col);
-// 			jQuery(".satie").animate({
-//       	backgroundColor: '0x' + col
-//  			}, 10 );
-// 		} else {
-// 			col = 0
-// 			console.log("false");	
-// 			jQuery(".satie").animate({
-//       backgroundColor: col
-//  			}, 500 );
-// 		};
-// 	});
-// }
 
 function listen(){
 	MIDI.Player.removeListener(); // removes current listener.
@@ -241,28 +175,51 @@ function smooth(){
 	});
 }
 
-//////////PUSHER//////////////////////
-// Enable pusher logging - don't include this in production
-Pusher.log = function(message) {
-  if (window.console && window.console.log) {
-    window.console.log(message);
-  }
-};
-
-
 $( document ).ready(function() {
 	var selected_piano;
 	var piano_return;
 	var playNote;
 	
-  ////// Pusher - initialize
+	//joins mob, sends ajax/pusher call to other page viewers, and prevents user from joining twice
+	$(function(){
+		$("#join").click(function() {
+			$("#pianos").append(' <li class = "piano"><img class="satie" src = "satie2.png" width="175px"></li>');
+			$("li:last").addClass("my_piano just_added");
+			assignPart();
+			loadFile(track);
+			selected_piano = $(this).attr('id');
+			$.ajax({
+			type: "POST",
+			url:"/piano",
+			dataType:'json',
+			data: {piano: selected_piano},
+			}).done(function(data){
+			});
+			$('#join_span').text("     Joined!     ");
+			$("#join").unbind("click");
+			$("#join").addClass("clicked");
+			$("#join").removeAttr('id');
+		});
+	});
+
+	$("#playbtn").click(function() {
+			$.ajax({
+			type: "POST",
+			url:"/play",
+			dataType:'json',
+			data: {piano: "selected_piano"},
+			}).done(function(data){
+				console.log(data);
+			});
+	});
+
+  // Pusher - initialize
   var play_all_event = new CustomEvent("play_all");
   var pusher = new Pusher('778221c8f338a6510736');
   var channel = pusher.subscribe('test_channel');
   var callback = function(data) {};
 
-
-  ///// Pusher - When a user joins adds images to other users' screens 
+  // Pusher - When a user joins adds images to other users' screens 
   channel.bind('my_event', function(data) {
     var key = "just_added";
     if ($('#pianos li').length === 0 || $("li:last").attr("class").search(key) === -1) {
@@ -273,14 +230,13 @@ $( document ).ready(function() {
     $(".just_added").unbind("search");
   });
 
-  ///// Pusher - Plays track 
+  // Pusher - Plays track 
   channel.bind('play_all', function(data, track) {
     playFile(track);
     channel.unbind('play_all', callback);
   });
 
 });
-
 
 $('#what').hover(function() {
 		$('#description').removeClass('hidden');
@@ -289,7 +245,6 @@ $('#what').hover(function() {
 $('#what').mouseout(function() {
 		$('#description').addClass('hidden');
 });
-
 
 window.onload = function () {
 	MIDI.loadPlugin({
@@ -309,6 +264,3 @@ window.onload = function () {
 		}
 	});
 };
-
-
-
