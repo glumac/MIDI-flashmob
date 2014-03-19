@@ -72,8 +72,8 @@ function assignPart(track){
 //plays an individual "silent" MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if some note is not played first before a file is loaded. 
 function playNote() {
   MIDI.loadPlugin({
-    soundfontUrl: "FluidR3_GM/",
-    instrument: "acoustic_grand_piano",
+   soundfontUrl: "FluidR3_GM/",
+   instrument: "acoustic_grand_piano",
     callback: function() {
       var delay = 0; // play one note every quarter second
       var note = 76; // the MIDI note
@@ -93,40 +93,6 @@ function loadFile(track) {
     console.log("file");
   });
 }
-
-//plays a MIDI track
-function playFile(track) {
-	MIDI.Player.start(track);
-	listen();
-	$('#play_span').text("Playing Gymnopédie No.1");
-	// smooth();
-		$(function(){
-		$("li:nth-child(1) img").click(function() {
-				MIDI.programChange(0, 52);
-				console.log("1");
-		});
-	});
-	$(function(){
-		$("li:nth-child(2) img").click(function() {
-				MIDI.programChange(0, 125);
-				console.log("2");
-		});
-	});
-	$(function(){
-		$("li:nth-child(3) img").click(function() {
-				MIDI.programChange(0, 18);
-				console.log("3");
-		});
-	});
-
-	$(function(){
-		$("li:nth-child(4) img").click(function() {
-				MIDI.programChange(0, 122);
-				console.log("4");
-		});
-	});
-}
-
 
 //starts playing the selected MIDI track.  Will later probably merge this function with playFile
 function playAll() {
@@ -161,6 +127,41 @@ function listen(){
       backgroundColor: "black"
  			}, 10000 );
 		};
+	});
+}
+
+//plays a MIDI track
+function playFile(track) {
+	if ($('#join_span').text() == "     Joined!     "){
+		$('#play_span').text("Playing Gymnopédie No.1");
+	};
+	MIDI.Player.start(track);
+	listen();
+	// smooth();
+		$(function(){
+		$("li:nth-child(1) img").click(function() {
+				MIDI.programChange(0, 52);
+				console.log("1");
+		});
+	});
+	$(function(){
+		$("li:nth-child(2) img").click(function() {
+				MIDI.programChange(0, 125);
+				console.log("2");
+		});
+	});
+	$(function(){
+		$("li:nth-child(3) img").click(function() {
+				MIDI.programChange(0, 18);
+				console.log("3");
+		});
+	});
+
+	$(function(){
+		$("li:nth-child(4) img").click(function() {
+				MIDI.programChange(0, 122);
+				console.log("4");
+		});
 	});
 }
 

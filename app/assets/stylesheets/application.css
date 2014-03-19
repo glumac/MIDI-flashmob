@@ -12,50 +12,42 @@
  *= require_tree .
  */
 
-/*.piano {
-	display: inline-block;
-	text-align: center;
-	margin-left:20px;
-	margin-right:20px
-}*/
-
-
 .satie {
 	 background-color: black;
 }
 
 .selected{
-   opacity: .5;
-   transition: opacity .25s ease-in-out;
-   -moz-transition: opacity .25s ease-in-out;
-   -webkit-transition: opacity .25s ease-in-out
+  opacity: .5;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out
 }
 
 .hidden {
-   opacity: .0;
-   transition: opacity .25s ease-in-out;
-   -moz-transition: opacity .25s ease-in-out;
-   -webkit-transition: opacity .25s ease-in-out
+  opacity: .0;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out
 }
 
 #info {
-		position: fixed;
-/*		width: 400px;*/
-		}
+	position: fixed;
+	width: 500px;
+}
 
 #what {
-		font-weight: bold;
+	font-weight: bold;
 }
 
 #description {
-		width: 300px;
-		font-size: 11px;
+	width: 300px;
+	font-size: 11px;
 }
 
 #wrapper {
 	margin-left:auto;
 	margin-right:auto;
-	padding-left: 40px;
+	padding-left:70px;
 	width:70%;
 	margin-top: 30px;
 	height: 100%;
@@ -63,8 +55,7 @@
 	text-align: center;
 }
 
-#pianos li
-{
+#pianos li {
   display: inline-block;
   list-style-type: none;
   padding-right: 20px;
@@ -72,27 +63,38 @@
 }
 
 #twitter {
- 		position: fixed;
-    bottom: 0;
-    right: 0;
+ 	position: fixed;
+  bottom: 0;
+  right: 0;
 }
 
 .clicked {
-	 opacity: .5;
-   transition: opacity .25s ease-in-out;
-   -moz-transition: opacity .25s ease-in-out;
-   -webkit-transition: opacity .25s ease-in-out
+	opacity: .5;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out
 }
 
 h1 {
 	font-family: 'Lobster', cursive;
 	font-size: 300%;
 	margin-bottom: 8px;
-	}
+}
 
 h2, h3, h4, h5, p {
 /*	font-family: 'Alice', serif;*/
 	font-family: 'Old Standard TT', serif;
-	}
+}
+
+body {
+	min-width: 1080px;
+}
+
+/*.piano {
+	display: inline-block;
+	text-align: center;
+	margin-left:20px;
+	margin-right:20px
+}*/
 
 
