@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require_tree .
 
-
 var track;
 var selected_piano;
 var piano_return;
@@ -152,15 +151,15 @@ function playFile(track) {
 	});
 	$(function(){
 		$("li:nth-child(3) img").click(function() {
-				MIDI.programChange(0, 18);
-				console.log("3");
+			MIDI.programChange(0, 18);
+			console.log("3");
 		});
 	});
 
 	$(function(){
 		$("li:nth-child(4) img").click(function() {
-				MIDI.programChange(0, 122);
-				console.log("4");
+			MIDI.programChange(0, 122);
+			console.log("4");
 		});
 	});
 }
@@ -184,7 +183,7 @@ $( document ).ready(function() {
 	//joins mob, sends ajax/pusher call to other page viewers, and prevents user from joining twice
 	$(function(){
 		$("#join").click(function() {
-			$("#pianos").append(' <li class = "piano"><img class="satie" src = "satie2.png" width="175px"></li>');
+			$("#pianos").append(' <li class = "piano"><img class="satie" src = "satie2.png"></li>');
 			$("li:last").addClass("my_piano just_added");
 			assignPart();
 			loadFile(track);
@@ -199,7 +198,6 @@ $( document ).ready(function() {
 			$('#join_span').text("     Joined!     ");
 			$("#join").unbind("click");
 			$("#join").addClass("clicked");
-			$("#join").removeAttr('id');
 		});
 	});
 
@@ -224,7 +222,7 @@ $( document ).ready(function() {
   channel.bind('my_event', function(data) {
     var key = "just_added";
     if ($('#pianos li').length === 0 || $("li:last").attr("class").search(key) === -1) {
-      $("#pianos").append('<li class = "piano selected"><img class="satie" src = "satie2.png" width="175px"></li>');
+      $("#pianos").append('<li class = "piano selected"><img class="satie" src = "satie2.png"></li>');
       }
     channel.unbind('my_event', callback);
     $(".just_added").removeClass('just_added');
@@ -237,14 +235,6 @@ $( document ).ready(function() {
     channel.unbind('play_all', callback);
   });
 
-});
-
-$('#what').hover(function() {
-		$('#description').removeClass('hidden');
-});
-
-$('#what').mouseout(function() {
-		$('#description').addClass('hidden');
 });
 
 window.onload = function () {
