@@ -19,53 +19,54 @@ var track;
 var selected_piano;
 var piano_return;
 
+
 //assigns correct part to player 
 function assignPart(track){
 	var key2 = "my_piano";
-  if ($("li:nth-child(1)").attr("class").search(key2) > 0){
+  if ($("li:nth-child(1)").hasClass(key2)){
 		window.track = "gym1.mid";
-	} else if ($("li:nth-child(2)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(2)").hasClass(key2)){
 		window.track = "gym2.mid";
-	} else if ($("li:nth-child(3)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(3)").hasClass(key2)){
 		window.track = "gym3.mid";
-	} else if ($("li:nth-child(4)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(4)").hasClass(key2)){
 		window.track = "gym4.mid";
-	} else if ($("li:nth-child(5)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(5)").hasClass(key2)){
 		window.track = "gym5.mid";
-	} else if ($("li:nth-child(6)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(6)").hasClass(key2)){
 		window.track = "gym6.mid";
-	} else if ($("li:nth-child(7)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(7)").hasClass(key2)){
 		window.track = "gym7.mid";
-	} else if ($("li:nth-child(8)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(8)").hasClass(key2)){
 		window.track = "gym8.mid";
-	} else if ($("li:nth-child(9)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(9)").hasClass(key2)){
 		window.track = "gym9.mid";
-	} else if ($("li:nth-child(10)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(10)").hasClass(key2)){
 		window.track = "gym10.mid";
-	} else if ($("li:nth-child(11)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(11)").hasClass(key2)){
 		window.track = "gym11.mid";
-	} else if ($("li:nth-child(12)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(12)").hasClass(key2)){
 		window.track = "gym12.mid";
-	} else if ($("li:nth-child(13)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(13)").hasClass(key2)){
 		window.track = "gym13.mid";
-	} else if ($("li:nth-child(14)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(14)").hasClass(key2)){
 		window.track = "gym14.mid";
-	} else if ($("li:nth-child(15)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(15)").hasClass(key2)){
 		window.track = "gym15.mid";
-	} else if ($("li:nth-child(16)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(16)").hasClass(key2)){
 		window.track = "gym16.mid";
-	} else if ($("li:nth-child(17)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(17)").hasClass(key2)){
 		window.track = "gym17.mid";
-	} else if ($("li:nth-child(18)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(18)").hasClass(key2)){
 		window.track = "gym18.mid";
-	} else if ($("li:nth-child(19)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(19)").hasClass(key2)){
 		window.track = "gym19.mid";
-	} else if ($("li:nth-child(20)").attr("class").search(key2) > 0){
+	} else if ($("li:nth-child(20)").hasClass(key2)){
 		window.track = "gym20.mid";
 	} else {
 		window.track = "gym2.mid";
 	}
-	console.log(track + "loaded");
+	console.log(window.track + " loaded");
 }
 
 //plays an individual "silent" MIDI node on image click. This is necessary for now as the MIDI file player seems to crash if some note is not played first before a file is loaded. 
@@ -131,6 +132,7 @@ function listen(){
 
 //plays a MIDI track
 function playFile(track) {
+	$('.prejoin').hide("slow");
 	if ($('#join_span').text() == "     Joined!     "){
 		$('#play_span').text("Playing Gymnopédie No.1");
 	};
@@ -180,37 +182,43 @@ $( document ).ready(function() {
 	var piano_return;
 	var playNote;
 	
-	//joins mob, sends ajax/pusher call to other page viewers, and prevents user from joining twice
-	$(function(){
-		$("#join").click(function() {
-			$("#pianos").append(' <li class = "piano"><img class="satie" src = "satie2.png"></li>');
-			$("li:last").addClass("my_piano just_added");
-			assignPart();
-			loadFile(track);
-			selected_piano = $(this).attr('id');
-			$.ajax({
-			type: "POST",
-			url:"/piano",
-			dataType:'json',
-			data: {piano: selected_piano},
-			}).done(function(data){
-			});
-			$('#join_span').text("     Joined!     ");
-			$("#join").unbind("click");
-			$("#join").addClass("clicked");
-		});
-	});
+function red(){
+	var toggler = $(".before:first");
+	toggler.children().removeClass("prejoin");
+	toggler.removeClass("before");
+	toggler.addClass("after");
+}
 
-	$("#playbtn").click(function() {
-			$.ajax({
-			type: "POST",
-			url:"/play",
-			dataType:'json',
-			data: {piano: "selected_piano"},
-			}).done(function(data){
-				console.log(data);
-			});
+//joins mob, sends ajax/pusher call to other page viewers, and prevents user from joining twice
+
+$("#join").click(function() {
+	red();
+	$(".after:last").addClass("my_piano just_added");
+	assignPart();
+	loadFile(track);
+	selected_piano = $(this).attr('id');
+	$.ajax({
+	type: "POST",
+	url:"/piano",
+	dataType:'json',
+	data: {piano: selected_piano},
+	}).done(function(data){
 	});
+	$('#join_span').text("     Joined!     ");
+	$("#join").unbind("click");
+	$("#join").addClass("clicked");
+});
+
+$("#playbtn").click(function() {
+	$.ajax({
+	type: "POST",
+	url:"/play",
+	dataType:'json',
+	data: {piano: "selected_piano"},
+	}).done(function(data){
+		console.log(data);
+	});
+});
 
   // Pusher - initialize
   var play_all_event = new CustomEvent("play_all");
@@ -220,13 +228,14 @@ $( document ).ready(function() {
 
   // Pusher - When a user joins adds images to other users' screens 
   channel.bind('my_event', function(data) {
-    var key = "just_added";
-    if ($('#pianos li').length === 0 || $("li:last").attr("class").search(key) === -1) {
-      $("#pianos").append('<li class = "piano selected"><img class="satie" src = "satie2.png"></li>');
-      }
+  	var lastbig = $(".after:last");
+  	if(!lastbig.hasClass("just_added")){
+  		red();
+  		var newlastbig = $(".after:last");
+  		newlastbig.addClass("selected");
+  	}
+  	lastbig.removeClass("just_added");
     channel.unbind('my_event', callback);
-    $(".just_added").removeClass('just_added');
-    $(".just_added").unbind("search");
   });
 
   // Pusher - Plays track 

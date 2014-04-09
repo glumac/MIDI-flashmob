@@ -43,7 +43,7 @@
 	display: inline-block;
 /*	min-width: 350px;*/
 	width: 33%;
-	background-color: pink;
+	/*background-color: pink;*/
 }
 
 #wrapper {
@@ -54,7 +54,8 @@
 	display: inline-block;
 	position:absolute;    
 	float:right;
-	background-color: #BCED91;
+	padding-right: 3%;
+	/*background-color: #BCED91;*/
 }
 
 #what {
@@ -79,8 +80,7 @@
   display: inline-block;
   list-style-type: none;
   margin-top: 3px;
-  padding-right: 1%;
-  padding-left: 1%;
+  padding-right: 2%;
   float: left;
   width: 18%;
 }
@@ -115,7 +115,9 @@ h2, h3, h4, h5, p {
 }
 
 
-
+p {
+	margin-top: 10px;
+}
 
 
 @media (max-width: 675px) {
@@ -138,7 +140,8 @@ h2, h3, h4, h5, p {
 	100% { -webkit-transform: scale(.5);}
 }
 
-#pianos li  {
+.prejoin  {
+	opacity: .5;
 	-webkit-animation-name: 'pulse_animation';
 	-webkit-animation-duration: 3000ms;
 	-webkit-transform-origin:70% 70%;
