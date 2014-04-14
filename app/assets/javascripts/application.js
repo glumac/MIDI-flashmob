@@ -18,27 +18,27 @@
 
 //plays an individual "silent" MIDI node on image click.  Fixes a bug I observed where MIDI file player will sometimes crash if some note is not played  in advance of loading a file file. 
 function playNote() {
-  MIDI.loadPlugin({
-   soundfontUrl: "FluidR3_GM/",
-   instrument: "acoustic_grand_piano",
-    callback: function() {
-      var delay = 0; // play one note every quarter second
-      var note = 76; // the MIDI note
-      var velocity = 127; // how hard the note hits
-      // play the note
-      MIDI.setVolume(0, 127);
-      MIDI.noteOn(0, note, velocity, delay);
-      MIDI.noteOff(0, note, delay + 0.75);
-      console.log("playnote");
-    }
-  });
+	MIDI.loadPlugin({
+	 soundfontUrl: "FluidR3_GM/",
+	 instrument: "acoustic_grand_piano",
+		callback: function() {
+			var delay = 0; // play one note every quarter second
+			var note = 76; // the MIDI note
+			var velocity = 127; // how hard the note hits
+			// play the note
+			MIDI.setVolume(0, 127);
+			MIDI.noteOn(0, note, velocity, delay);
+			MIDI.noteOff(0, note, delay + 0.75);
+			console.log("playnote");
+		}
+	});
 }
 
 //loads a MIDI track
 function loadFile(track) {
 		MIDI.Player.loadFile(track, function(e){
-    console.log("file");
-  });
+		console.log("file");
+	});
 }
 
 //starts playing the selected MIDI track.  Will later probably merge this function with playFile
@@ -59,21 +59,22 @@ function listen(){
 		var velocity = data.velocity; // the velocity of the note
 		// var col = 0x0;
 		// var hexNote = note.toString(16);
+		console.log(note);
 		if (note < 50 && data.message === 144) {
 			console.log(note);
 			jQuery(".satie").animate({
-      	backgroundColor: "purple"
- 			}, 10000 );
+				backgroundColor: "#551a8b"
+			}, 10000 );
 		} else if (note >= 50 && data.message === 144) {
 			console.log(note);	
 			jQuery(".satie").animate({
-      backgroundColor: "yellow"
- 			}, 10000 );
- 			} else if (data.message === 128) {
+			backgroundColor: "#ffff00"
+			}, 10000 );
+			} else if (data.message === 128) {
 			console.log(note);	
 			jQuery(".satie").animate({
-      backgroundColor: "black"
- 			}, 10000 );
+			backgroundColor: "#ffffff"
+			}, 10000 );
 		};
 	});
 }
@@ -159,19 +160,19 @@ channel.bind('my_event', function(data) {
 		newlastbig.addClass("selected");
 	}
 	lastbig.removeClass("just_added");
-  channel.unbind('my_event', callback);
+	channel.unbind('my_event', callback);
 });
 
 // Pusher - Plays track 
 channel.bind('play_all', function(data, track) {
-  playFile(track);
-  channel.unbind('play_all', callback);
+	playFile(track);
+	channel.unbind('play_all', callback);
 });
 
 //assigns correct part to individual player 
 function assignPart(track){
 	var key2 = "my_piano";
-  if ($("li:nth-child(1)").hasClass(key2)){
+	if ($("li:nth-child(1)").hasClass(key2)){
 		window.track = "gym1.mid";
 	} else if ($("li:nth-child(2)").hasClass(key2)){
 		window.track = "gym2.mid";
